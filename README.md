@@ -4,7 +4,7 @@ HSD-Projekt.
 
 Falls ihr gerade diese README lest, wisst ihr wahrscheinlich bereits worum es geht. Wenn nicht: Wiedersehn.
 
-* ACHTUNG: Niemals Passwörter, z.B. in configs commiten!!! *
+* ACHTUNG: Niemals Passwörter, z.B. in configs commiten!!!
 
 
 
@@ -21,9 +21,10 @@ Falls ihr gerade diese README lest, wisst ihr wahrscheinlich bereits worum es ge
 
 - Install XXAMP ---- TODO Erklärung
 
-- Klont dieses Git-Repository (https://github.com/MajusLenz/zukunftsbaum.git) auf euren Rechner in einen Pfad eurer Wahl. Z.B. "C:\uni\projekte\zukunftsbaum"
+- Klont dieses Git-Repository (https://github.com/MajusLenz/zukunftsbaum.git) auf euren Rechner in einen Pfad eurer Wahl. Z.B. "C:\uni\projekte\zukunftsbaum\code"
 
 - Navigiert im Terminal in diesen Pfad.
 
-- Führt dort den Befehl "composer install" aus.
+- Führt dort den Befehl "composer install" zum installieren der Dependencies aus.
 
+- Führt dann den Befehl "" zum starten des lokalen Webservers aus.
