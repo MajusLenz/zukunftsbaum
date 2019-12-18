@@ -19,7 +19,7 @@ Falls ihr gerade diese README lest, wisst ihr wahrscheinlich bereits worum es ge
 
 - Installiert euch die neuste Symfony Version auf euren Rechner. (https://symfony.com/download)
 
-- Install XXAMP for DB   ----> TODO Erklärung
+- Ignoriert diesen Punkt erstmal: ////////// Install XXAMP for DB --> TODO Erklärung
 
 - Klont dieses Git-Repository (https://github.com/MajusLenz/zukunftsbaum.git) auf euren Rechner in einen Pfad eurer Wahl. Z.B. "C:\uni\projekte\zukunftsbaum\code"
 
