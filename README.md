@@ -11,7 +11,7 @@ Falls ihr gerade diese README lest, wisst ihr wahrscheinlich bereits worum es ge
 
 # Installationsanleitung:
 
-- Installiert euch die neuste PHP Version 7.3.7 auf euren Rechner. Am leichtesten in dies über den "Windows Web Platform Installer". Für Windows 8 könnt ihr die Aneitung nutzen die ich auch benutzt habe: https://support.microsoft.com/de-de/help/2819022/how-to-install-and-configure-php-on-iis-8-in-windows-8. Für ein anderes Betriebssystem müsst ihr selber googlen.
+- Installiert euch die PHP Version 7.3.7 auf euren Rechner. Am leichtesten geht dies m.M.n über den "Windows Web Platform Installer". Für Windows 8 könnt ihr die Aneitung nutzen die ich auch benutzt habe: https://support.microsoft.com/de-de/help/2819022/how-to-install-and-configure-php-on-iis-8-in-windows-8. Für ein anderes Betriebssystem müsst ihr selber googlen. (Der Link klappt wahrscheinlich auch für Windows 10. Einfach mal durchlesen und ausprobieren)
 
 - Installiert euch die neuste Composer Version auf euren Rechner.
 
