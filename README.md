@@ -9,9 +9,9 @@ Falls ihr gerade diese README lest, wisst ihr wahrscheinlich bereits worum es ge
 
 
 
-# Installationsanleitung:
+# Web-Server Installationsanleitung:
 
-- Installiert euch für eure IDE am besten ein Symfony Plugin. Ich nutze PHP Storm, da geht es über File -> Settings -> Plugins -> "Symfony Support".
+- Optional: Installiert euch für eure IDE am besten ein Symfony Plugin. Ich nutze PHP Storm, da geht es über File -> Settings -> Plugins -> "Symfony Support".
 
 - Installiert euch die PHP Version 7.3.7 auf euren Rechner. Am leichtesten geht dies m.M.n über den "Windows Web Platform Installer". Für Windows 8 könnt ihr die Aneitung nutzen die ich auch benutzt habe: https://support.microsoft.com/de-de/help/2819022/how-to-install-and-configure-php-on-iis-8-in-windows-8. Für ein anderes Betriebssystem müsst ihr selber googlen. (Der Link klappt wahrscheinlich auch für Windows 10. Einfach mal durchlesen und ausprobieren)
 
@@ -20,8 +20,6 @@ Falls ihr gerade diese README lest, wisst ihr wahrscheinlich bereits worum es ge
 - Installiert euch die neuste GIT Version auf euren Rechner.
 
 - Installiert euch die neuste Symfony Version auf euren Rechner. (https://symfony.com/download)
-
-- Ignoriert diesen Punkt erstmal: ////////// Install XXAMP for DB --> TODO Erklärung
 
 - Klont dieses Git-Repository (https://github.com/MajusLenz/zukunftsbaum.git) auf euren Rechner in einen Pfad eurer Wahl. Z.B. "C:\uni\projekte\zukunftsbaum\code"
 
@@ -35,3 +33,8 @@ Falls ihr gerade diese README lest, wisst ihr wahrscheinlich bereits worum es ge
 
 - Öffnet die URL in eurem Browser. Sollte alles funktioniert haben, sollte die Symfony-default-page angezeigt werden. ("Welcome to
 Symfony 5.0.1 ...") Beenden könnt ihr den Serverprozess mit Strg + C.
+
+# Datenbank-Server Installationsanleitung
+
+- Ignoriert diesen Punkt erstmal: ////////// Install XXAMP for DB --> TODO Erklärung
+
