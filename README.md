@@ -21,7 +21,7 @@ Falls ihr gerade diese README lest, wisst ihr wahrscheinlich bereits worum es ge
 
 - Klont dieses Git-Repository (https://github.com/MajusLenz/zukunftsbaum.git) auf euren Rechner in einen Pfad eurer Wahl. Z.B. "C:\uni\projekte\zukunftsbaum\code"
 
-- Navigiert im Terminal in den Pfad. (in windows: cd "C:\uni\projekte\zukunftsbaum\code")
+- Navigiert im Terminal in besagten Pfad. (in windows über den Befehl: cd "C:\uni\projekte\zukunftsbaum\code")
 
 - Führt dort den Befehl "composer install" zum installieren der Dependencies aus.
 
