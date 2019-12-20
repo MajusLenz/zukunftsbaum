@@ -46,7 +46,6 @@ Beenden könnt ihr den Serverprozess mit Strg + C.
 
 - Öffnet die Seite "127.0.0.1:8000/dbtest". wenn alles funktioniert hat, sollte die Nachricht "DB-Server funktioniert!" erscheinen.
 
-
-
+- Fertig!
 
 - Weitere nützliche Befehle: "php bin/console make:entity" , "php bin/console make:migration" , "php bin/console make:migration --regenerate --overwrite"
