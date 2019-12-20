@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ parent() }}
+    Test-DB
+{% endblock %}
+
+
+{% block body %}
+    {{ luckyNumber }}
+    <br/>
+    <br/>
+
+    DB-Server funktioniert!
+    <br/>
+    <br/>
+
+
+    {% for index, tree in trees %}
+        {{ index }} --- {{ tree.id }} --- {{ tree.createdAt|date }}
+        <br/>
+    {% endfor %}
+{% endblock %}
