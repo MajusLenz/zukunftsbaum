@@ -40,9 +40,9 @@ Beenden könnt ihr den Serverprozess mit Strg + C.
 
 - Startet in dem Tool die Datenbank. Diese sollte nun auf Port 3306 einen Datenbankprozess laufen haben.
 
-- Führt im Terminal im noch immer selben Pfad den Befehl "php bin/console doctrine:database:create" aus, um die DB zu erstellen.
+- Führt im Terminal noch immer selben Pfad (z.B: "C:\uni\projekte\zukunftsbaum\code") den Befehl "php bin/console doctrine:database:create" aus, um die DB zu erstellen.
 
-- Führt dann den befehl "php bin/console doctrine:migrations:migrate" aus, um die DB zu initialisieren.
+- Führt dann den befehl "php bin/console doctrine:migrations:migrate" aus, um die DB zu um die Tabellen zu erstellen.
 
 - Öffnet die Seite "127.0.0.1:8000/dbtest". wenn alles funktioniert hat, sollte die Nachricht "DB-Server funktioniert!" erscheinen.
 
