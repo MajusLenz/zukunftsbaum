@@ -15,9 +15,14 @@
     <br/>
     <br/>
 
-
     {% for index, tree in trees %}
-        {{ index }} --- {{ tree.id }} --- {{ tree.createdAt|date }}
+        Tree: Tree-ID: {{ tree.id }} --- createdAt: {{ tree.createdAt|date }}
+        <br/>
+        Tree-Informations:
+        {% for index, information in tree.informations %}
+            Information-ID: {{ information.id }} --- name: {{ information.name }} --- value: {{ information.value }}
+        {% endfor %}
+        <br/>
         <br/>
     {% endfor %}
 {% endblock %}

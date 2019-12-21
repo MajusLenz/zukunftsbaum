@@ -36,15 +36,15 @@ Beenden könnt ihr den Serverprozess mit Strg + C.
 
 # Datenbank-Server Installationsanleitung
 
-- Installiert euch ein Tool um eine MySQL Datenbank lokal zu emulieren. Ich nutze dazu XAMPP.
+- Installiert euch ein Tool eures Vertrauens um eine MySQL-Datenbank lokal zu emulieren. Ich nutze dazu XAMPP.
 
 - Startet in dem Tool die Datenbank. Diese sollte nun auf Port 3306 einen Datenbankprozess laufen haben.
 
-- Führt im Terminal noch immer selben Pfad (z.B: "C:\uni\projekte\zukunftsbaum\code") den Befehl "php bin/console doctrine:database:create" aus, um die DB zu erstellen.
+- Führt im Terminal im noch immer selben Pfad (also z.B: "C:\uni\projekte\zukunftsbaum\code") den Befehl "php bin/console doctrine:database:create" aus, um die DB zu erstellen.
 
 - Führt dann den befehl "php bin/console doctrine:migrations:migrate" aus, um die DB zu um die Tabellen zu erstellen.
 
-- Öffnet die Seite "127.0.0.1:8000/dbtest". wenn alles funktioniert hat, sollte die Nachricht "DB-Server funktioniert!" erscheinen.
+- Öffnet die Seite "127.0.0.1:8000/dbtest". Wenn alles funktioniert hat, sollte die Nachricht "DB-Server funktioniert!" erscheinen.
 
 - Fertig!
 
