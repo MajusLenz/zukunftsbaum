@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\ServerTest;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,7 +44,7 @@ class TestController extends AbstractController{
             );
         }
 
-        return $this->render('testdb.html.twig', [
+        return $this->render('serverTest/testdb.html.twig', [
             'luckyNumber' => $number,
             "trees" => $trees
         ]);
@@ -61,7 +61,7 @@ class TestController extends AbstractController{
 
         $number = random_int(0, 100);
 
-        return $this->render('testweb.html.twig', [
+        return $this->render('serverTest/testweb.html.twig', [
             'luckyNumber' => $number,
         ]);
     }

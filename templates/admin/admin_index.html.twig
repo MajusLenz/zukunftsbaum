@@ -1,0 +1,57 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ parent() }}
+    Admin
+{% endblock %}
+
+{% block bodyClass %}admin admin-index{% endblock %}
+
+{% block body %}
+    <table class="admin-index-table">
+        <thead>
+            <tr>
+                <td>Baum-ID</td>
+                <td>erstellt am</td>
+                <td>Baum-Informationen</td>
+                <td>Operationen</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tree in trees %}
+                <tr>
+                    <td>{{ tree.id }}</td>
+                    <td>{{ tree.createdAt|date }}</td>
+                    <td>
+                        <ul>
+                            {% for info in tree.informations %}
+                                <li>
+                                    {{ info.name }}: {{ info.value }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li class="admin-delete-tree-li">
+                                <button class="admin-delete-tree-button" id="admin-delete-tree-button-{{ tree.id }}" data-toggle-show="admin-delete-tree-confirm-buttons-{{ tree.id }}">gesamten Baum dauerhaft löschen</button>
+                                <div class="admin-delete-tree-confirm-buttons" id="admin-delete-tree-confirm-buttons-{{ tree.id }}"
+                                style="display: none;">
+                                    <span>Sicher?</span>
+                                    <form action="{{ path('admin_delete_tree', {'id': tree.id}) }}">
+                                        <button class="admin-delete-tree-confirm-button" type="submit">Ja</button>
+                                    </form>
+                                    <button class="admin-delete-tree-unconfirm-button"
+                                            data-toggle-show="admin-delete-tree-button-{{ tree.id }}"
+                                            data-toggle-hide="admin-delete-tree-confirm-buttons-{{ tree.id }}"
+                                    >Abbrechen</button>
+                                </div>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

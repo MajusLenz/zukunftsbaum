@@ -48,4 +48,5 @@ Beenden könnt ihr den Serverprozess mit Strg + C.
 
 - Fertig!
 
-- Weitere nützliche Befehle: "php bin/console make:entity" , "php bin/console make:migration" , "php bin/console make:migration --regenerate --overwrite"
+
+Weitere nützliche Befehle: "php bin/console make:entity" , "php bin/console make:migration" , "php bin/console make:migration --regenerate --overwrite"

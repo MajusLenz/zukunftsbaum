@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html>
+
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Zukunftsbaum | {% endblock %}</title>
-        {% block stylesheets %}
-            <link rel="stylesheet" href="">
-        {% endblock %}
+
+        <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
+        {% block stylesheets %}{% endblock %}
     </head>
-    <body>
+
+    <body class="{% block bodyClass %}{% endblock %}">
+
         {% block body %}{% endblock %}
 
-        <script src=""></script>
+        <script src="{{ asset('assets/js/jquery-3.4.1.min.js') }}"></script>
+        <script src="{{ asset('assets/js/scripts.js') }}"></script>
         {% block javascripts %}{% endblock %}
 
     </body>
+
 </html>

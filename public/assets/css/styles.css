@@ -1,0 +1,19 @@
+/* GENERAL */
+
+table {
+    border-collapse: collapse;
+}
+table, th, td {
+    border: 1px solid black;
+}
+thead {
+    height: 50px;
+    font-weight: bold;
+}
+
+
+/* ADMIN */
+
+.admin-delete-tree-li form{
+    display: inline-block;
+}
