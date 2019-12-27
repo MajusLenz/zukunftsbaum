@@ -14,6 +14,10 @@ thead {
 
 /* ADMIN */
 
+.admin-new-tree-form > label{
+    display: block;
+}
+
 .admin-delete-tree-li form{
     display: inline-block;
 }

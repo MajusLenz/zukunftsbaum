@@ -8,6 +8,47 @@
 {% block bodyClass %}admin admin-index{% endblock %}
 
 {% block body %}
+    <h1>Administrator-Bereich</h1>
+
+    <h2>Baum erstellen</h2>
+    <form class="admin-new-tree-form">
+        <label>
+            Name:
+            <input class="admin-new-tree-name" name="name" type="text" required="required" />
+        </label>
+        <label>
+            Bild:
+            <input class="admin-new-tree-name" name="pic" type="file" />
+            TODO
+        </label>
+
+        <br/>
+        <div class="admin-new-tree-informations">
+            <span>Baum Informationen:</span>
+            <div id="admin-new-tree-information-blueprint" style="display: none;">
+                <div class="admin-new-tree-information">
+                    <label>
+                        Informations-Art:
+                        <input class="admin-new-tree-information-name" type="text" required="required" />
+                    </label>
+                    <label>
+                        Informations-Wert:
+                        <textarea class="admin-new-tree-information-value" required="required" rows="1" ></textarea>
+                    </label>
+                    <button type="button">Information entfernen</button>
+                </div>
+            </div>
+
+            <br/>
+            <button class="admin-new-tree-add-information-button" type="button">Information hinzufügen</button>
+        </div>
+
+        <br/>
+        <button type="submit">Baum erstellen</button>
+        <button type="reset">Eingaben löschen</button>
+    </form>
+
+    <h2>Baum-Übersicht</h2>
     <table class="admin-index-table">
         <thead>
             <tr>
@@ -43,8 +84,8 @@
                                     </form>
                                     <button class="admin-delete-tree-unconfirm-button"
                                             data-toggle-show="admin-delete-tree-button-{{ tree.id }}"
-                                            data-toggle-hide="admin-delete-tree-confirm-buttons-{{ tree.id }}"
-                                    >Abbrechen</button>
+                                            data-toggle-hide="admin-delete-tree-confirm-buttons-{{ tree.id }}">
+                                        Abbrechen</button>
                                 </div>
                             </li>
                         </ul>

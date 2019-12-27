@@ -46,4 +46,21 @@ class AdminController extends AbstractController{
 
         return $this->redirectToRoute('admin_index', [], 301);
     }
+
+    /**
+     * @Route("/adminNewTree/", name="admin_new_tree")
+     */
+    public function adminNewTreeAction() {
+        // TODO check if authenticated
+
+        $doctrine = $this->getDoctrine();
+        $entityManager = $doctrine->getManager();
+        $treeRepository = $doctrine->getRepository(Tree::class);
+
+
+        // TODO check params and add new tree to DB
+
+
+        return $this->redirectToRoute('admin_index', [], 301);
+    }
 }

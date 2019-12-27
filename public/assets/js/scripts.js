@@ -2,7 +2,12 @@
 
     // ADMIN OPERATIONS:
 
-    // toggle between an option and its confirmation
+    // dynamically add more tree-information fields to the new-tree-form
+    // TODO add information button
+    // TODO delete information inputs on form reset
+
+
+    // toggle between an option and its confirmation in the tree-overview-table
     $("[data-toggle-show]").each(function () {
         var $this = $(this);
 
