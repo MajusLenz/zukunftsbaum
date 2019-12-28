@@ -11,38 +11,41 @@
     <h1>Administrator-Bereich</h1>
 
     <h2>Baum erstellen</h2>
-    <form class="admin-new-tree-form">
+    <form class="admin-new-tree-form" method="POST" action="{{ path('admin_new_tree') }}" enctype="multipart/form-data">
         <label>
             Name:
-            <input class="admin-new-tree-name" name="name" type="text" required="required" />
+            <input class="admin-new-tree-name" name="name" type="text" required="required"/>
         </label>
         <label>
             Bild:
-            <input class="admin-new-tree-name" name="pic" type="file" />
+            <input class="admin-new-tree-pic" name="pic" type="file"/>
             TODO
         </label>
 
         <br/>
-        <div class="admin-new-tree-informations">
-            <span>Baum Informationen:</span>
-            <div id="admin-new-tree-information-blueprint" style="display: none;">
-                <div class="admin-new-tree-information">
-                    <label>
-                        Informations-Art:
-                        <input class="admin-new-tree-information-name" type="text" required="required" />
-                    </label>
-                    <label>
-                        Informations-Wert:
-                        <textarea class="admin-new-tree-information-value" required="required" rows="1" ></textarea>
-                    </label>
-                    <button type="button">Information entfernen</button>
-                </div>
+        <span>Baum Informationen:</span>
+        <br/>
+        <button class="admin-new-tree-add-information-button" type="button">Information hinzufügen</button>
+        <div id="admin-new-tree-information-blueprint" style="display: none;">
+            <div class="admin-new-tree-information">
+                <label>
+                    Informations-Art:
+                    <select class="admin-new-tree-information-name" required="required" name="information-name-">
+                        <option value="farbe">Farbe</option>
+                        <option value="hoehe">Höhe</option>
+                        <option value="wasserverbrauch">Wasserverbrauch</option>
+                    </select>
+                </label>
+                <label>
+                    Informations-Wert:
+                    <textarea class="admin-new-tree-information-value" required="required" name="information-value-" rows="1"></textarea>
+                </label>
+                <button class="admin-new-tree-delete-information-button" type="button">Information entfernen</button>
             </div>
-
-            <br/>
-            <button class="admin-new-tree-add-information-button" type="button">Information hinzufügen</button>
         </div>
+        <div class="admin-new-tree-informations"></div>
 
+        <br/>
         <br/>
         <button type="submit">Baum erstellen</button>
         <button type="reset">Eingaben löschen</button>
@@ -54,6 +57,7 @@
             <tr>
                 <td>Baum-ID</td>
                 <td>erstellt am</td>
+                <td>Name</td>
                 <td>Baum-Informationen</td>
                 <td>Operationen</td>
             </tr>
@@ -63,6 +67,7 @@
                 <tr>
                     <td>{{ tree.id }}</td>
                     <td>{{ tree.createdAt|date }}</td>
+                    <td class="admin-index-table-tree-name">{{ tree.name }}</td>
                     <td>
                         <ul>
                             {% for info in tree.informations %}

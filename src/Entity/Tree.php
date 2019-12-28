@@ -29,6 +29,11 @@ class Tree
      */
     private $informations;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
+
     public function __construct()
     {
         $this->informations = new ArrayCollection();
@@ -74,6 +79,18 @@ class Tree
         if ($this->informations->contains($information)) {
             $this->informations->removeElement($information);
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }

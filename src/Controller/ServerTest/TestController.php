@@ -30,6 +30,7 @@ class TestController extends AbstractController{
         $information->setValue($number);
 
         $tree = new Tree();
+        $tree->setName("testTree");
         $tree->addInformation($information);
 
         $entityManager->persist($tree);
