@@ -11,6 +11,10 @@ thead {
     font-weight: bold;
 }
 
+ul.no-decoration{
+    list-style: none;
+}
+
 
 /* ADMIN */
 

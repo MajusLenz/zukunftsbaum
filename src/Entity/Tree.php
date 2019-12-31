@@ -34,10 +34,16 @@ class Tree
      */
     private $name;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\TreePicture", mappedBy="tree")
+     */
+    private $pictures;
+
     public function __construct()
     {
         $this->informations = new ArrayCollection();
         $this->setCreatedAt(new DateTime());
+        $this->pictures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -94,4 +100,36 @@ class Tree
 
         return $this;
     }
+
+    /**
+     * @return Collection|TreePicture[]
+     */
+    public function getPictures(): Collection
+    {
+        return $this->pictures;
+    }
+
+    public function addPicture(TreePicture $picture): self
+    {
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures[] = $picture;
+            $picture->setTree($this);
+        }
+
+        return $this;
+    }
+
+    public function removePicture(TreePicture $picture): self
+    {
+        if ($this->pictures->contains($picture)) {
+            $this->pictures->removeElement($picture);
+            // set the owning side to null (unless already changed)
+            if ($picture->getTree() === $this) {
+                $picture->setTree(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

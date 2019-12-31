@@ -1,7 +1,11 @@
 <?php
 namespace App\Controller\Admin;
 
+use App\Entity\TreePicture;
+use ErrorException;
+use mysql_xdevapi\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -16,16 +20,16 @@ class AdminController extends AbstractController{
     /**
     * @Route("/admin", name="admin_index")
     */
-    public function adminIndexAction() {
+    public function adminIndexAction(string $treePicsDir) {
         // TODO check if authenticated
 
         $doctrine = $this->getDoctrine();
-        $entityManager = $doctrine->getManager();
 
         $trees = $doctrine->getRepository(Tree::class)->findAll();
 
         return $this->render('admin/admin_index.html.twig', [
-            "trees" => $trees
+            "trees" => $trees,
+            "treePicsDir" => $treePicsDir . "/"
         ]);
     }
 
@@ -33,7 +37,7 @@ class AdminController extends AbstractController{
     /**
      * @Route("/adminDeleteTree/{id}", name="admin_delete_tree")
      */
-    public function adminDeleteTreeAction($id) {
+    public function adminDeleteTreeAction($id, string $treePicsDirFull) {
         // TODO check if authenticated
 
         $doctrine = $this->getDoctrine();
@@ -43,6 +47,17 @@ class AdminController extends AbstractController{
         $tree = $treeRepository->find($id);
 
         if( !empty($tree) ) {
+
+            // delete tree-pics
+            foreach ($tree->getPictures() as $pic) {
+                try{
+                    unlink($treePicsDirFull . "/" . $pic->getPath());
+                }
+                catch(ErrorException $e) {}
+
+                $entityManager->remove($pic);
+            }
+
             $entityManager->remove($tree);
             $entityManager->flush();
         }
@@ -54,18 +69,12 @@ class AdminController extends AbstractController{
     /**
      * @Route("/adminNewTree/", name="admin_new_tree", methods={"POST"})
      */
-    public function adminNewTreeAction() {
+    public function adminNewTreeAction(Request $request, string $treePicsDirFull) {
         // TODO check if authenticated
 
         $doctrine = $this->getDoctrine();
         $entityManager = $doctrine->getManager();
-
-        $request = Request::createFromGlobals();
         $postParams = $request->request;
-
-
-        dump($postParams);
-
 
         $name = $postParams->get('name');
         $name = trim($name);
@@ -79,21 +88,25 @@ class AdminController extends AbstractController{
             throw new HttpException(400, "Tree-Name must be unique!");
         }
 
+        $newTree = new Tree();
+        $newTree->setName($name);
+
+
+        // search all tree-information-names and link them to their corresponding values
         $treeInformations = array();
 
-        // search all tree-informations in post-params
-        foreach($postParams as $key => $value) {
+        foreach($postParams as $key => $param) {
             $isInformation = strpos($key, "information") !== false;
 
             if($isInformation) {
-                if ( empty($key) || empty($value) ) {
+                if ( empty($key) || empty($param) ) {
                     throw new HttpException(400, "Tree-Information Names and Values must not be empty!");
                 }
 
                 $isInformationName = strpos($key, "information-name-") !== false;
 
                 if ($isInformationName) {
-                    $informationName = trim($value);
+                    $informationName = trim($param);
                     $informationNumber = str_replace("information-name-", "", $key);
 
                     $informationValue = $postParams->get("information-value-$informationNumber");
@@ -104,15 +117,7 @@ class AdminController extends AbstractController{
             }
         }
 
-
-        // TODO PictureS
-
-
-
-        // persist new tree
-        $newTree = new Tree();
-        $newTree->setName($name);
-
+        // persist tree-informations
         foreach($treeInformations as $info) {
             $duplicateInformation = $doctrine->getRepository(TreeInformation::class)->findOneBy( [
                 "name" => $info["name"],
@@ -132,9 +137,29 @@ class AdminController extends AbstractController{
             $entityManager->persist($newInformation);
         }
 
+
+        // upload tree-pictures and persist their path
+        $files = $request->files;
+        $pictures = $files->get("pictures");
+
+        foreach($pictures as $pic) {
+            $filename = uniqid();
+            $extension = $pic->guessExtension();
+            $path = $filename . "." . $extension;
+            $isImageType = in_array( strtolower($extension), array("png", "gif", "jpg", "jpeg", "webp") );
+
+            if($isImageType) {
+                $pic->move($treePicsDirFull, $path);
+                $newTreePicture = new TreePicture();
+                $newTreePicture->setPath($path);
+                $newTree->addPicture($newTreePicture);
+                $entityManager->persist($newTreePicture);
+            }
+        }
+
+
         $entityManager->persist($newTree);
         $entityManager->flush();
-
 
         return $this->redirectToRoute('admin_index');
     }

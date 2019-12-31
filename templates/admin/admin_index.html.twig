@@ -18,7 +18,7 @@
         </label>
         <label>
             Bild:
-            <input class="admin-new-tree-pic" name="pic" type="file"/>
+            <input class="admin-new-tree-pic" name="pictures[]" type="file" multiple="multiple"/>
             TODO
         </label>
 
@@ -31,9 +31,9 @@
                 <label>
                     Informations-Art:
                     <select class="admin-new-tree-information-name" required="required" name="information-name-">
-                        <option value="farbe">Farbe</option>
-                        <option value="hoehe">Höhe</option>
-                        <option value="wasserverbrauch">Wasserverbrauch</option>
+                        <option value="Farbe">Farbe</option>
+                        <option value="Höhe">Höhe</option>
+                        <option value="Wasserverbrauch">Wasserverbrauch</option>
                     </select>
                 </label>
                 <label>
@@ -58,6 +58,7 @@
                 <td>Baum-ID</td>
                 <td>erstellt am</td>
                 <td>Name</td>
+                <td>Bilder</td>
                 <td>Baum-Informationen</td>
                 <td>Operationen</td>
             </tr>
@@ -69,6 +70,17 @@
                     <td>{{ tree.createdAt|date }}</td>
                     <td class="admin-index-table-tree-name">{{ tree.name }}</td>
                     <td>
+                        <ul class="no-decoration">
+                            {% for pic in tree.pictures %}
+                                <li>
+                                    <a href="{{ asset(treePicsDir ~ pic.path) }}" target="_blank">
+                                        <img src="{{ asset(treePicsDir ~ pic.path) }}" alt="" width="150px"/>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>
                         <ul>
                             {% for info in tree.informations %}
                                 <li>
@@ -78,7 +90,7 @@
                         </ul>
                     </td>
                     <td>
-                        <ul>
+                        <ul class="no-decoration">
                             <li class="admin-delete-tree-li">
                                 <button class="admin-delete-tree-button" id="admin-delete-tree-button-{{ tree.id }}" data-toggle-show="admin-delete-tree-confirm-buttons-{{ tree.id }}">gesamten Baum dauerhaft löschen</button>
                                 <div class="admin-delete-tree-confirm-buttons" id="admin-delete-tree-confirm-buttons-{{ tree.id }}"
