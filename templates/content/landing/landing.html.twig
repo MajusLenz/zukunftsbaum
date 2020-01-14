@@ -1,0 +1,38 @@
+{% extends "content/content_base.html.twig" %}
+
+{% block title %}
+    {{ parent() }}
+    Willkommen!
+{% endblock %}
+
+{% block mainClass %}landing{% endblock %}
+
+{% block main %}
+
+    <p>
+        Das hier ist der Inhalt der Landing-Page!!!
+    </p>
+
+    {% for i in 1..5 %}
+        <div>
+            <strong>
+                {{ testString }}
+            </strong>
+        </div>
+    {% endfor %}
+
+    <br/>
+
+    {% for index, entry in testArray %}
+        <div>
+            {{ index }}: {{ entry }}
+        </div>
+    {% endfor %}
+
+    <br/>
+
+
+    {# TODO #}
+
+
+{% endblock %}

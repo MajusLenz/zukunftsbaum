@@ -3,7 +3,6 @@ namespace App\Controller\Admin;
 
 use App\Entity\TreePicture;
 use ErrorException;
-use mysql_xdevapi\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -70,7 +69,7 @@ class AdminController extends AbstractController
 
 
     /**
-     * @Route("/adminNewTree/", name="admin_new_tree", methods={"POST"})
+     * @Route("/adminNewTree", name="admin_new_tree", methods={"POST"})
      */
     public function adminNewTreeAction(Request $request, string $treePicsDirFull)
     {

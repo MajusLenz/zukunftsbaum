@@ -5,6 +5,10 @@
     Admin
 {% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/css/admin.styles.css') }}">
+{% endblock %}
+
 {% block bodyClass %}admin admin-index{% endblock %}
 
 {% block body %}
@@ -59,7 +63,7 @@
             <label>
                 Informations-Art:
                 <select class="admin-edit-tree-information-name" required="required" name="information-name-">
-                    {% for infoName in ["Farbe", "Höhe", "Wasserverbrauch"] %}
+                    {% for infoName in allInformationNames %}
                         <option value="{{ infoName }}">{{ infoName }}</option>
                     {% endfor %}
                 </select>
@@ -187,7 +191,7 @@
                                         <label>
                                             Informations-Art:
                                             <select class="admin-edit-tree-information-name" required="required" name="information-name-">
-                                                {% for infoName in ["Farbe", "Höhe", "Wasserverbrauch"] %}
+                                                {% for infoName in allInformationNames %}
                                                     {% set isSelected = (info.name == infoName) %}
                                                     <option {% if isSelected %}selected="selected"{% endif %} value="{{ infoName }}">{{ infoName }}</option>
                                                 {% endfor %}
