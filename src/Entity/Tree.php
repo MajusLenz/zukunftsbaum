@@ -89,6 +89,12 @@ class Tree
         return $this;
     }
 
+    public function clearInformations(): self
+    {
+        $this->informations = new ArrayCollection();
+        return $this;
+    }
+
     public function getName(): ?string
     {
         return $this->name;

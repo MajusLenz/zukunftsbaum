@@ -11,17 +11,54 @@ thead {
     font-weight: bold;
 }
 
-ul.no-decoration{
+ul.no-list-decoration {
     list-style: none;
 }
+
+.table{
+    display: table;
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+.thead{
+    display: table-row-group;
+    height: 50px;
+    font-weight: bold;
+}
+.tbody {
+    display: table-row-group;
+}
+.tr{
+    display: table-row;
+}
+.th, .td{
+    display: table-cell;
+    border: 1px solid black;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+}
+
 
 
 /* ADMIN */
 
-.admin-new-tree-form > label{
+.admin-tree-pics .img-link {
+    vertical-align: top;
+}
+
+.admin-operations-td, .admin-edit-tree-confirm-buttons {
+    text-align: center;
+}
+
+.admin-new-tree-form > label {
     display: block;
 }
 
-.admin-delete-tree-li form{
+.admin-delete-tree-div form {
     display: inline-block;
+}
+
+.admin-edit-tree-information {
+    margin-bottom: 30px;
 }
