@@ -44,13 +44,9 @@ Beenden könnt ihr den Serverprozess mit Strg + C.
 
 - Führt dann den befehl "php bin/console doctrine:migrations:migrate" aus, um die DB zu um die Tabellen zu erstellen.
 
-- Öffnet die Seite "127.0.0.1:8000/dbtest". Wenn alles funktioniert hat, sollte die Nachricht "DB-Server funktioniert!" erscheinen.
+- Öffnet die Seite "127.0.0.1:8000/testdb". Wenn alles funktioniert hat, sollte die Nachricht "DB-Server funktioniert!" erscheinen.
 
 - Fertig!
 
 
 Weitere nützliche Befehle: "php bin/console make:entity" , "php bin/console make:migration" , "php bin/console make:migration --regenerate --overwrite"
-
-
-
-test
