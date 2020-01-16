@@ -3,7 +3,6 @@ namespace App\Controller\Admin;
 
 use App\Entity\TreePicture;
 use ErrorException;
-use mysql_xdevapi\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,11 +15,13 @@ use App\Entity\Tree;
 use App\Entity\TreeInformation;
 
 
-class AdminController extends AbstractController{
+class AdminController extends AbstractController
+{
     /**
-    * @Route("/admin", name="admin_index")
-    */
-    public function adminIndexAction(string $treePicsDir) {
+     * @Route("/admin", name="admin_index")
+     */
+    public function adminIndexAction(string $treePicsDir)
+    {
         // TODO check if authenticated
 
         $doctrine = $this->getDoctrine();
@@ -35,9 +36,10 @@ class AdminController extends AbstractController{
 
 
     /**
-     * @Route("/adminDeleteTree/{id}", name="admin_delete_tree")
+     * @Route("/admin/deleteTree/{id}", name="admin_delete_tree", methods={"POST"}, requirements={"id"="\d+"})
      */
-    public function adminDeleteTreeAction($id, string $treePicsDirFull) {
+    public function adminDeleteTreeAction($id, string $treePicsDirFull)
+    {
         // TODO check if authenticated
 
         $doctrine = $this->getDoctrine();
@@ -46,14 +48,14 @@ class AdminController extends AbstractController{
 
         $tree = $treeRepository->find($id);
 
-        if( !empty($tree) ) {
+        if (!empty($tree)) {
 
             // delete tree-pics
             foreach ($tree->getPictures() as $pic) {
-                try{
+                try {
                     unlink($treePicsDirFull . "/" . $pic->getPath());
+                } catch (ErrorException $e) {
                 }
-                catch(ErrorException $e) {}
 
                 $entityManager->remove($pic);
             }
@@ -67,39 +69,118 @@ class AdminController extends AbstractController{
 
 
     /**
-     * @Route("/adminNewTree/", name="admin_new_tree", methods={"POST"})
+     * @Route("/admin/newTree", name="admin_new_tree", methods={"POST"})
      */
-    public function adminNewTreeAction(Request $request, string $treePicsDirFull) {
+    public function adminNewTreeAction(Request $request, string $treePicsDirFull)
+    {
         // TODO check if authenticated
 
         $doctrine = $this->getDoctrine();
         $entityManager = $doctrine->getManager();
+        $treeRepository = $doctrine->getRepository(Tree::class);
+        $treeInformationRepository = $doctrine->getRepository(TreeInformation::class);
         $postParams = $request->request;
 
         $name = $postParams->get('name');
         $name = trim($name);
 
-        if(empty($name)) {
+        if (empty($name)) {
             throw new HttpException(400, "Tree-Name must not be empty!");
         }
 
-        $duplicateTree = $doctrine->getRepository(Tree::class)->findOneBy( ["name" => $name] );
-        if($duplicateTree !== null) {
+        $duplicateTree = $treeRepository->findOneBy(["name" => $name]);
+        if ($duplicateTree !== null) {
             throw new HttpException(400, "Tree-Name must be unique!");
         }
 
         $newTree = new Tree();
         $newTree->setName($name);
 
+        // persist tree-informations
+        $treeInformations = $this->getTreeInformationsFromPostParams($postParams);
+        $this->persistTreeInformationsForGivenTree($newTree, $treeInformations, $treeInformationRepository, $entityManager);
 
-        // search all tree-information-names and link them to their corresponding values
+        // upload tree-pictures and persist their path
+        $files = $request->files;
+        $pictures = $files->get("pictures");
+        $this->persistTreePicturesForGivenTree($newTree, $pictures, $treePicsDirFull, $entityManager);
+
+        $entityManager->persist($newTree);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('admin_index');
+    }
+
+    /**
+     * @Route("/admin/editTree/{id}", name="admin_edit_tree", methods={"POST"}, requirements={"id"="\d+"})
+     */
+    public function adminEditTreeAction($id, Request $request, string $treePicsDirFull)
+    {
+        // TODO check if authenticated
+
+        $doctrine = $this->getDoctrine();
+        $entityManager = $doctrine->getManager();
+        $treeRepository = $doctrine->getRepository(Tree::class);
+        $treeInformationRepository = $doctrine->getRepository(TreeInformation::class);
+        $treePicturesRepository = $doctrine->getRepository(TreePicture::class);
+        $postParams = $request->request;
+
+        $tree = $treeRepository->find($id);
+        if ( empty($tree) ) {
+            throw new HttpException(400, "Tree with ID " . $id . " could not be found.");
+        }
+
+        $newName = $postParams->get('name');
+        $newName = trim($newName);
+        $oldName = $tree->getName();
+
+        if ($newName !== $oldName) {
+            if ( empty($newName) ) {
+                throw new HttpException(400, "Tree-Name must not be empty!");
+            }
+
+            $duplicateTree = $treeRepository->findOneBy(["name" => $newName]);
+            if ($duplicateTree !== null) {
+                throw new HttpException(400, "Tree-Name must be unique!");
+            }
+
+            $tree->setName($newName);
+        }
+
+        // edit Informations
+        $tree->clearInformations();
+        $treeInformations = $this->getTreeInformationsFromPostParams($postParams);
+        $this->persistTreeInformationsForGivenTree($tree, $treeInformations, $treeInformationRepository, $entityManager);
+
+        // edit pictures
+        $this->deletePicturesByPostParamsForGivenTree($tree, $postParams, $treePicsDirFull, $entityManager, $treePicturesRepository);
+        $files = $request->files;
+        $newPictures = $files->get("pictures");
+        $this->persistTreePicturesForGivenTree($tree, $newPictures, $treePicsDirFull, $entityManager);
+
+        $entityManager->persist($tree);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('admin_index');
+    }
+
+
+    /////////////////// PRIVATE METHODS ///////////////////
+
+    /**
+     * search all tree-information-names in post-params and link them to their corresponding values. return associative array with info-entries.
+     * @param $postParams
+     * @return array
+     */
+    private function getTreeInformationsFromPostParams($postParams)
+    {
         $treeInformations = array();
 
-        foreach($postParams as $key => $param) {
+        foreach ($postParams as $key => $param) {
             $isInformation = strpos($key, "information") !== false;
 
-            if($isInformation) {
-                if ( empty($key) || empty($param) ) {
+            if ($isInformation) {
+                if (empty($key) || empty($param)) {
                     throw new HttpException(400, "Tree-Information Names and Values must not be empty!");
                 }
 
@@ -117,50 +198,90 @@ class AdminController extends AbstractController{
             }
         }
 
-        // persist tree-informations
-        foreach($treeInformations as $info) {
-            $duplicateInformation = $doctrine->getRepository(TreeInformation::class)->findOneBy( [
+        return $treeInformations;
+    }
+
+    /**
+     * @param $tree
+     * @param $postParams
+     * @param $treePicsDirFull
+     * @param $entityManager
+     * @param $treePicturesRepository
+     */
+    private function deletePicturesByPostParamsForGivenTree($tree, $postParams, $treePicsDirFull, $entityManager, $treePicturesRepository) {
+
+        foreach ($postParams as $key => $param) {
+            $isDeletePictureParam = strpos($key, "delete-pic-") !== false;
+
+            if($isDeletePictureParam) {
+                $id = $param;
+                $pic = $treePicturesRepository->find($id);
+
+                if( !empty($pic) ) {
+                    $tree->removePicture($pic);
+
+                    try {
+                        unlink($treePicsDirFull . "/" . $pic->getPath());
+                    } catch (ErrorException $e) {
+                    }
+
+                    $entityManager->remove($pic);
+                }
+            }
+        }
+    }
+
+    /**
+     * @param $tree
+     * @param $treeInformations
+     * @param $treeInformationRepository
+     * @param $entityManager
+     */
+    private function persistTreeInformationsForGivenTree($tree, $treeInformations, $treeInformationRepository, $entityManager)
+    {
+
+        foreach ($treeInformations as $info) {
+            $duplicateInformation = $treeInformationRepository->findOneBy([
                 "name" => $info["name"],
                 "value" => $info["value"]
             ]);
-            if($duplicateInformation === null) {
+            if ($duplicateInformation === null) {
                 $newInformation = new TreeInformation();
-                $newInformation->setName( $info["name"] );
-                $newInformation->setValue( $info["value"] );
-
-            }
-            else{
+                $newInformation->setName($info["name"]);
+                $newInformation->setValue($info["value"]);
+            } else {
                 $newInformation = $duplicateInformation;
             }
 
-            $newTree->addInformation($newInformation);
+            $tree->addInformation($newInformation);
             $entityManager->persist($newInformation);
         }
+    }
 
+    /**
+     * @param $tree
+     * @param $pictures
+     * @param $treePicsDirFull
+     * @param $entityManager
+     */
+    private function persistTreePicturesForGivenTree($tree, $pictures, $treePicsDirFull, $entityManager) {
 
-        // upload tree-pictures and persist their path
-        $files = $request->files;
-        $pictures = $files->get("pictures");
-
-        foreach($pictures as $pic) {
+        foreach ($pictures as $pic) {
             $filename = uniqid();
-            $extension = $pic->guessExtension();
+            $extension = strtolower($pic->guessExtension());
             $path = $filename . "." . $extension;
-            $isImageType = in_array( strtolower($extension), array("png", "gif", "jpg", "jpeg", "webp") );
+            $isImageType = in_array($extension, array("png", "gif", "jpg", "jpeg", "webp"));
 
-            if($isImageType) {
+            if ($isImageType) {
                 $pic->move($treePicsDirFull, $path);
                 $newTreePicture = new TreePicture();
                 $newTreePicture->setPath($path);
-                $newTree->addPicture($newTreePicture);
+                $tree->addPicture($newTreePicture);
                 $entityManager->persist($newTreePicture);
             }
         }
-
-
-        $entityManager->persist($newTree);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('admin_index');
     }
+
+
+
 }

@@ -5,21 +5,26 @@
     Admin
 {% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/css/admin.styles.css') }}">
+{% endblock %}
+
 {% block bodyClass %}admin admin-index{% endblock %}
 
 {% block body %}
     <h1>Administrator-Bereich</h1>
+    <a href="{{ path('app_logout') }}">logout</a>
 
     <h2>Baum erstellen</h2>
     <form class="admin-new-tree-form" method="POST" action="{{ path('admin_new_tree') }}" enctype="multipart/form-data">
         <label>
             Name:
-            <input class="admin-new-tree-name" name="name" type="text" required="required"/>
+            <input class="admin-new-tree-name" name="name" type="text" required="required" autofocus="autofocus"/>
         </label>
         <label>
-            Bild:
-            <input class="admin-new-tree-pic" name="pictures[]" type="file" multiple="multiple"/>
-            TODO
+            Bilder:
+            <input class="admin-new-tree-pics" name="pictures[]" type="file" multiple="multiple"/>
+            <span>(Mehrfachauswahl möglich)</span>
         </label>
 
         <br/>
@@ -51,36 +56,56 @@
         <button type="reset">Eingaben löschen</button>
     </form>
 
+
     <h2>Baum-Übersicht</h2>
-    <table class="admin-index-table">
-        <thead>
-            <tr>
-                <td>Baum-ID</td>
-                <td>erstellt am</td>
-                <td>Name</td>
-                <td>Bilder</td>
-                <td>Baum-Informationen</td>
-                <td>Operationen</td>
-            </tr>
-        </thead>
-        <tbody>
+
+    <div class="admin-edit-tree-information-blueprint" style="display: none;">
+        <div class="admin-edit-tree-information admin-edit-tree-information-added">
+            <label>
+                Informations-Art:
+                <select class="admin-edit-tree-information-name" required="required" name="information-name-">
+                    {% for infoName in allInformationNames %}
+                        <option value="{{ infoName }}">{{ infoName }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <br/>
+            <label>
+                Informations-Wert:
+                <textarea class="admin-edit-tree-information-value" required="required" name="information-value-" rows="1"></textarea>
+            </label>
+            <br/>
+            <button class="admin-edit-tree-information-delete-added-information-button" type="button">Information löschen</button>
+        </div>
+    </div>
+
+    <div class="table admin-index-table">
+        <div class="thead">
+            <div class="tr">
+                <div class="td">Baum-ID</div>
+                <div class="td">erstellt am</div>
+                <div class="td">Name</div>
+                <div class="td">Bilder</div>
+                <div class="td">Baum-Informationen</div>
+                <div class="td">Operationen</div>
+            </div>
+        </div>
+        <div class="tbody">
             {% for tree in trees %}
-                <tr>
-                    <td>{{ tree.id }}</td>
-                    <td>{{ tree.createdAt|date }}</td>
-                    <td class="admin-index-table-tree-name">{{ tree.name }}</td>
-                    <td>
-                        <ul class="no-decoration">
-                            {% for pic in tree.pictures %}
-                                <li>
-                                    <a href="{{ asset(treePicsDir ~ pic.path) }}" target="_blank">
-                                        <img src="{{ asset(treePicsDir ~ pic.path) }}" alt="" width="150px"/>
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </td>
-                    <td>
+                <div class="tr admin-tree-row-display" id="admin-tree-row-display-{{ tree.id }}">
+                    <div class="td admin-tree-id-display">{{ tree.id }}</div>
+                    <div class="td admin-tree-created-at-display">{{ tree.createdAt|date }}</div>
+                    <div class="td admin-tree-name-display">{{ tree.name }}</div>
+                    <div class="td admin-tree-pics">
+                        {% for pic in tree.pictures %}
+                            <div>
+                                <a class="img-link" href="{{ asset(treePicsDir ~ pic.path) }}" target="_blank">
+                                    <img src="{{ asset(treePicsDir ~ pic.path) }}" alt="" width="150px"/>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="td">
                         <ul>
                             {% for info in tree.informations %}
                                 <li>
@@ -88,28 +113,117 @@
                                 </li>
                             {% endfor %}
                         </ul>
-                    </td>
-                    <td>
-                        <ul class="no-decoration">
-                            <li class="admin-delete-tree-li">
-                                <button class="admin-delete-tree-button" id="admin-delete-tree-button-{{ tree.id }}" data-toggle-show="admin-delete-tree-confirm-buttons-{{ tree.id }}">gesamten Baum dauerhaft löschen</button>
+                    </div>
+                    <div class="td admin-operations-td">
+                        <div class="admin-operations">
+                            <div class="admin-delete-tree-div">
+                                <button class="admin-delete-tree-button" id="admin-delete-tree-button-{{ tree.id }}" type="button"
+                                        data-toggle-show="admin-delete-tree-confirm-buttons-{{ tree.id }}"
+                                        data-toggle-hide="this admin-edit-tree-div-{{ tree.id }}"
+                                >gesamten Baum dauerhaft löschen</button>
                                 <div class="admin-delete-tree-confirm-buttons" id="admin-delete-tree-confirm-buttons-{{ tree.id }}"
                                 style="display: none;">
                                     <span>Sicher?</span>
-                                    <form action="{{ path('admin_delete_tree', {'id': tree.id}) }}">
+                                    <form action="{{ path('admin_delete_tree', {'id': tree.id}) }}" method="POST">
                                         <button class="admin-delete-tree-confirm-button" type="submit">Ja</button>
                                     </form>
-                                    <button class="admin-delete-tree-unconfirm-button"
-                                            data-toggle-show="admin-delete-tree-button-{{ tree.id }}"
+                                    <button class="admin-delete-tree-unconfirm-button" type="button"
+                                            data-toggle-show="admin-edit-tree-div-{{ tree.id }} admin-delete-tree-button-{{ tree.id }}"
                                             data-toggle-hide="admin-delete-tree-confirm-buttons-{{ tree.id }}">
                                         Abbrechen</button>
                                 </div>
-                            </li>
+                            </div>
+                            <div class="admin-edit-tree-div" id="admin-edit-tree-div-{{ tree.id }}">
+                                <button class="admin-edit-tree-button" type="button"
+                                        data-toggle-show="admin-tree-row-edit-{{ tree.id }}"
+                                        data-toggle-hide="admin-tree-row-display-{{ tree.id }}"
+                                >Baum bearbeiten</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="tr admin-edit-tree-form admin-tree-row-edit" id="admin-tree-row-edit-{{ tree.id }}" style="display:none;"
+                      action="{{ path('admin_edit_tree', {'id': tree.id}) }}" method="POST" enctype="multipart/form-data">
+
+                    <div class="td">
+                        {{ tree.id }}
+                    </div>
+                    <div class="td">{{ tree.createdAt|date }}</div>
+                    <div class="td admin-edit-tree-name-input">
+                        <label>
+                            <input name="name" type="text" required="required" value="{{ tree.name }}"/>
+                        </label>
+                    </div>
+                    <div class="td admin-edit-tree-pics">
+                        <div class="admin-edit-tree-pics-new-pics">
+                            <label>
+                                <span>Bilder hinzufügen:</span>
+                                <br/>
+                                <input class="admin-new-tree-pics" name="pictures[]" type="file" multiple="multiple"/>
+                                <br/>
+                                <span>(Mehrfachauswahl möglich)</span>
+                            </label>
+                        </div>
+
+                        <br/>
+                        <div class="admin-edit-tree-pics-old-pics">
+                            {% for pic in tree.pictures %}
+                                <div>
+                                    <a href="{{ asset(treePicsDir ~ pic.path) }}" target="_blank">
+                                        <img src="{{ asset(treePicsDir ~ pic.path) }}" alt="{{ tree.name }}" width="150px"/>
+                                    </a>
+                                    <label>
+                                        Bild löschen
+                                        <input class="admin-edit-tree-pics-delete-pic-checkbox" type="checkbox"
+                                               name="delete-pic-{{ pic.id }}" value="{{ pic.id }}"/>
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="td">
+                        <button class="admin-edit-tree-add-information-button" type="button">Information hinzufügen</button>
+
+                        <ul class="admin-edit-tree-informations-old">
+                            {% for info in tree.informations %}
+                                <li>
+                                    <div class="admin-edit-tree-information admin-edit-tree-information-old">
+                                        <label>
+                                            Informations-Art:
+                                            <select class="admin-edit-tree-information-name" required="required" name="information-name-">
+                                                {% for infoName in allInformationNames %}
+                                                    {% set isSelected = (info.name == infoName) %}
+                                                    <option {% if isSelected %}selected="selected"{% endif %} value="{{ infoName }}">{{ infoName }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </label>
+                                        <br/>
+                                        <label>
+                                            Informations-Wert:
+                                            <textarea class="admin-edit-tree-information-value" name="information-value-" rows="1" required="required">{{ info.value }}</textarea>
+                                        </label>
+                                        <br/>
+                                        <button class="admin-edit-tree-information-delete-old-information-button" type="button">Information löschen</button>
+                                    </div>
+                                </li>
+                            {% endfor %}
                         </ul>
-                    </td>
-                </tr>
+
+                        <ul class="admin-edit-tree-informations-added"></ul>
+
+                    </div>
+
+                    <div class="td admin-edit-tree-confirm-buttons">
+                        <button class="admin-edit-tree-confirm-button" type="submit">Bearbeitung bestätigen</button>
+                        <button class="admin-delete-tree-unconfirm-button" type="reset"
+                                data-toggle-show="admin-tree-row-display-{{ tree.id }}"
+                                data-toggle-hide="admin-tree-row-edit-{{ tree.id }}">
+                            Abbrechen</button>
+                    </div>
+                </form>
             {% endfor %}
-        </tbody>
-    </table>
+        </div>
+    </div>
 
 {% endblock %}

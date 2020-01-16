@@ -2,86 +2,213 @@
 
     // ADMIN OPERATIONS:
 
-    // toggle between an option and its confirmation in the tree-overview-table
-    $("[data-toggle-show]").each(function () {
+    // generic functionality to implement easy html buttons that fadeIn/fadeOut other elements
+    $("[data-toggle-show]").on("click", function () {
         var $this = $(this);
 
-        var toggleShowId = $this.data("toggle-show");
-        var toggleShowElement = $("#" + toggleShowId);
+        var idsString = $this.data("toggle-show");
+        var idsArray = idsString.split(" ");
 
-        if(toggleShowElement.length === 0) {
-            return;
-        }
+        for(var i = 0; i < idsArray.length; i++) {
+            var id = idsArray[i];
+            var $toggleShowElement = $("#" + id);
 
-        var toggleHideId = $this.data("toggle-hide");
-        var toggleHideElement = $this;
-
-        if(toggleHideId) {
-            toggleHideElement = $("#" + toggleHideId);
-
-            if(toggleHideElement.length === 0) {
-                return;
+            if($toggleShowElement.length !== 0) {
+                $toggleShowElement.fadeIn(0);
             }
         }
+    });
+    $("[data-toggle-hide]").on("click", function () {
+        var $this = $(this);
 
-        $this.on("click", function () {
-            toggleShowElement.fadeIn(0);
-            toggleHideElement.fadeOut(0);
-        });
+        var idsString = $this.data("toggle-hide");
+        var idsArray = idsString.split(" ");
+
+        for(var i = 0; i < idsArray.length; i++) {
+            var id = idsArray[i];
+            var $toggleHideElement = $("#" + id);
+
+            if($toggleHideElement.length !== 0) {
+                $toggleHideElement.fadeOut(0);
+            }
+            else{
+                if(id === "this") {
+                    $this.fadeOut(0);
+                }
+            }
+        }
     });
 
+    // New Tree Form:
 
     // dynamically create more tree-information inputs to the new-tree-form
     var $newTreeForm = $(".admin-new-tree-form");
-    var $addInformationButton = $newTreeForm.find(".admin-new-tree-add-information-button");
-    var $newInformationBlueprint = $newTreeForm.find("#admin-new-tree-information-blueprint").children(".admin-new-tree-information");
-    $newInformationBlueprint.detach();
-    var $informationArea = $newTreeForm.find(".admin-new-tree-informations");
-    var informationCounter = 1;
+    var $newTreeAddInformationButton = $newTreeForm.find(".admin-new-tree-add-information-button");
+    var $newTreeNewInformationBlueprint = $newTreeForm.find("#admin-new-tree-information-blueprint").children(".admin-new-tree-information");
+    $newTreeNewInformationBlueprint.detach();
+    var $newTreeInformationArea = $newTreeForm.find(".admin-new-tree-informations");
+    var newTreeInformationCounter = 1;
 
-    $addInformationButton.on("click", function () {
-        var $newInformation = $newInformationBlueprint.clone();
+    $newTreeAddInformationButton.on("click", function () {
+        var $newInformation = $newTreeNewInformationBlueprint.clone();
 
         var $nameInput = $newInformation.find(".admin-new-tree-information-name");
-        $nameInput.attr("name", $nameInput.attr("name") + informationCounter);
+        $nameInput.attr("name", $nameInput.attr("name") + newTreeInformationCounter);
 
         var $valueInput = $newInformation.find(".admin-new-tree-information-value");
-        $valueInput.attr("name", $valueInput.attr("name") + informationCounter);
+        $valueInput.attr("name", $valueInput.attr("name") + newTreeInformationCounter);
 
-        informationCounter++;
+        newTreeInformationCounter++;
 
         $newInformation.find(".admin-new-tree-delete-information-button").on("click", function () {
             $newInformation.remove();
         });
         
-        $newInformation.appendTo($informationArea);
+        $newInformation.appendTo($newTreeInformationArea);
     });
 
 
     // delete all created tree-information inputs on form-reset of the new-tree-form
     $newTreeForm.on("reset", function () {
-        $informationArea.children().remove();
+        $newTreeInformationArea.children().remove();
     });
 
 
     // stop submission of form if new tree-name is not unique
-    var $treeNameTds = $(".admin-index-table-tree-name");
+    var $treeNameTds = $(".admin-tree-name-display");
+
+    var treeNameIsUnique = function (treeName, ignoreTreeName) {
+        var result = true;
+
+        $treeNameTds.each(function () {
+            var thisTreeName = $(this).text();
+
+            if(thisTreeName === treeName && thisTreeName !== ignoreTreeName) {
+                result = false;
+            }
+        });
+
+        return result;
+    };
+
     var $newTreeNameInput = $newTreeForm.find(".admin-new-tree-name");
 
     $newTreeForm.on("submit", function (e) {
         var newTreeName = $newTreeNameInput.val();
 
-        $treeNameTds.each(function () {
-            var thisTreeName = $(this).text();
+        if( !treeNameIsUnique(newTreeName) ) {
+            e.preventDefault();
+            alert("Baumname '" + newTreeName + "' existiert bereits. Baumnamen dürfen nur einem einzigen Baum zugewiesen werden.");
+        }
+    });
 
-            if(thisTreeName === newTreeName) {
-                e.preventDefault();
-                alert("Baum-Name '" + newTreeName + "' existiert bereits. Baumnamen dürfen nur einem einzigen Baum zugewiesen werden.");
-                return false;
-            }
+
+    // Edit Tree Form:
+
+    // dynamically create more tree-information inputs to the edit-tree-form
+    var $editTreeNewInformationBlueprint = $(".admin-edit-tree-information-blueprint").children(".admin-edit-tree-information");
+    var $editTreeAddInformationButton = $(".admin-edit-tree-add-information-button");
+    
+    $editTreeAddInformationButton.on("click", function () {
+        var $this = $(this);
+
+        var $editTreeForm = $this.parents(".admin-edit-tree-form");
+        var $editTreeAddedInformationArea = $editTreeForm.find(".admin-edit-tree-informations-added");
+
+        var $newInformationDiv = $editTreeNewInformationBlueprint.clone();
+        var $newInformation = $("<li></li>").append($newInformationDiv);
+
+        $newInformation.find(".admin-edit-tree-information-delete-old-information-button").on("click", function () {
+            $newInformation.remove();
+        });
+
+        $newInformation.appendTo($editTreeAddedInformationArea);
+    });
+
+    // on submission of edit-form, add a number to every Information to make them distinguishable
+    // and check if the new tree-name is unique
+    var $editTreeForms = $(".admin-edit-tree-form");
+
+    $editTreeForms.on("submit", function (e) {
+        var $this = $(this);
+
+        var newTreeName = $this.find(".admin-edit-tree-name-input input").val();
+        var oldTreeName = $this.prev(".admin-tree-row-display").find(".admin-tree-name-display").text();
+
+        if( !treeNameIsUnique(newTreeName, oldTreeName) ) {
+            e.preventDefault();
+            alert("Baumname '" + newTreeName + "' existiert bereits. Baumnamen dürfen nur einem einzigen Baum zugewiesen werden.");
+        }
+
+        var editTreeInformationCounter = 1;
+
+        var $informations = $this.find(".admin-edit-tree-information");
+
+        $informations.each(function () {
+            var $information = $(this);
+
+            var $nameInput = $information.find(".admin-edit-tree-information-name");
+            $nameInput.attr("name", $nameInput.attr("name") + editTreeInformationCounter);
+
+            var $valueInput = $information.find(".admin-edit-tree-information-value");
+            $valueInput.attr("name", $valueInput.attr("name") + editTreeInformationCounter);
+
+            editTreeInformationCounter++;
         });
     });
 
+    // function to delete newly added informations in edit-tree-form
+    var deleteAddedInformations = function ($informations) {
+        $informations.each(function () {
+            var $informationLi = $(this).parent("li");
+            $informationLi.detach();
+        });
+    };
+
+    // function to delete old informations in edit-tree-form
+    var deleteOldInformations = function ($informations) {
+        $informations.each(function () {
+            var $informationLi = $(this).parent("li");
+            $informationLi.fadeOut(0);
+
+            $informationLi.find("select, textarea").prop("disabled", true);
+        });
+    };
+
+    // function to recover deleted old informations in edit-tree-form
+    var resetOldInformations = function ($informations) {
+        $informations.each(function () {
+            var $informationLi = $(this).parent("li");
+            $informationLi.fadeIn(0);
+
+            $informationLi.find("select, textarea").prop("disabled", false);
+        });
+    };
+
+    // delete added information on delete-button click
+    $(document).on("click", ".admin-edit-tree-information-delete-added-information-button", function () {
+        var $information = $(this).parents(".admin-edit-tree-information-added");
+
+        deleteAddedInformations($information);
+    });
+
+    // delete old information on delete-button click
+    $(".admin-edit-tree-information-delete-old-information-button").on("click", function () {
+        var $information = $(this).parents(".admin-edit-tree-information-old");
+
+        deleteOldInformations($information);
+    });
+
+    // delete added informations and recover old informations on reset of edit-form
+    $editTreeForms.on("reset", function () {
+        var $form = $(this);
+
+        var $addedInformations = $form.find(".admin-edit-tree-information-added");
+        deleteAddedInformations($addedInformations);
+
+        var $oldInformations = $form.find(".admin-edit-tree-information-old");
+        resetOldInformations($oldInformations);
+    });
 
 
 

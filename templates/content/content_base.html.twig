@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/css/content.styles.css') }}">
+{% endblock %}
+
+{% block bodyClass %}content{% endblock %}
+
+{% block body %}
+
+    <header>
+        <h1>Dies ist der Header</h1>
+
+        {# TODO #}
+
+    </header>
+
+    <main class="{% block mainClass %}{% endblock %}">
+        {% block main %}{% endblock %}
+    </main>
+
+    <footer>
+        <small>Dies ist der Footer</small>
+
+        {# TODO #}
+
+    </footer>
+
+{% endblock %}
