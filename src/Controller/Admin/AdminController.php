@@ -36,7 +36,7 @@ class AdminController extends AbstractController
 
 
     /**
-     * @Route("/adminDeleteTree/{id}", name="admin_delete_tree", methods={"POST"}, requirements={"id"="\d+"})
+     * @Route("/admin/deleteTree/{id}", name="admin_delete_tree", methods={"POST"}, requirements={"id"="\d+"})
      */
     public function adminDeleteTreeAction($id, string $treePicsDirFull)
     {
@@ -69,7 +69,7 @@ class AdminController extends AbstractController
 
 
     /**
-     * @Route("/adminNewTree", name="admin_new_tree", methods={"POST"})
+     * @Route("/admin/newTree", name="admin_new_tree", methods={"POST"})
      */
     public function adminNewTreeAction(Request $request, string $treePicsDirFull)
     {
@@ -112,7 +112,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/adminEditTree/{id}", name="admin_edit_tree", methods={"POST"}, requirements={"id"="\d+"})
+     * @Route("/admin/editTree/{id}", name="admin_edit_tree", methods={"POST"}, requirements={"id"="\d+"})
      */
     public function adminEditTreeAction($id, Request $request, string $treePicsDirFull)
     {

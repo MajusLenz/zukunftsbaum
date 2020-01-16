@@ -13,6 +13,7 @@
 
 {% block body %}
     <h1>Administrator-Bereich</h1>
+    <a href="{{ path('app_logout') }}">logout</a>
 
     <h2>Baum erstellen</h2>
     <form class="admin-new-tree-form" method="POST" action="{{ path('admin_new_tree') }}" enctype="multipart/form-data">
