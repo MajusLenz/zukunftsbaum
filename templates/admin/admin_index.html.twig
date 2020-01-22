@@ -226,4 +226,18 @@
         </div>
     </div>
 
+
+    <br/>
+    <br/>
+    <br/>
+    <form class="admin-upload-csv-form" method="POST" action="{{ path('admin_upload_csv') }}" enctype="multipart/form-data">
+        <label>
+            <h3>CSV-Datei mit Bauminformationen hochladen:</h3>
+            <input class="admin-upload-csv-input" name="tree_list" type="file" required="required"/>
+        </label>
+        <button type="submit">Bäume erstellen</button>
+    </form>
+    <br/>
+    <br/>
+
 {% endblock %}

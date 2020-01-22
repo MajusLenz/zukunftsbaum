@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ parent() }}
+    Bäume wurden erstellt
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/css/admin.styles.css') }}">
+{% endblock %}
+
+{% block bodyClass %}admin admin-errorlist{% endblock %}
+
+{% block body %}
+    <h1>Bäume erfolgreich erstellt!</h1>
+    <a href="{{ path('admin_index') }}">Zurück zum Administrator-Bereich</a>
+
+    <div class="admin-upload-csv-errors">
+        <h3>Bei Erstellen der Bäume sind folgende Fehler aufgetreten:</h3>
+        <div>
+            {% if errors|length > 0 %}
+                {% for error in errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            {% else %}
+                Es gab keine Fehler. Alle Bäume wurde erfolgreich erstellt.
+            {% endif %}
+        </div>
+    </div>
+    <br/>
+    <br/>
+
+{% endblock %}

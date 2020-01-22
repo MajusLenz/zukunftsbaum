@@ -4,7 +4,12 @@ namespace App\Controller\Admin;
 use App\Entity\TreePicture;
 use ErrorException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Exception\IOException;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -13,17 +18,18 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Tree;
 use App\Entity\TreeInformation;
+use Symfony\Component\Finder\Finder;
 
 
-class AdminController extends AbstractController
-{
+class AdminController extends AbstractController {
+
+    const ALLOWED_PICTURE_EXTENSIONS = array("png", "gif", "jpg", "jpeg", "webp", "bmp");
+
     /**
      * @Route("/admin", name="admin_index")
      */
     public function adminIndexAction(string $treePicsDir)
     {
-        // TODO check if authenticated
-
         $doctrine = $this->getDoctrine();
 
         $trees = $doctrine->getRepository(Tree::class)->findAll();
@@ -40,8 +46,6 @@ class AdminController extends AbstractController
      */
     public function adminDeleteTreeAction($id, string $treePicsDirFull)
     {
-        // TODO check if authenticated
-
         $doctrine = $this->getDoctrine();
         $entityManager = $doctrine->getManager();
         $treeRepository = $doctrine->getRepository(Tree::class);
@@ -73,8 +77,6 @@ class AdminController extends AbstractController
      */
     public function adminNewTreeAction(Request $request, string $treePicsDirFull)
     {
-        // TODO check if authenticated
-
         $doctrine = $this->getDoctrine();
         $entityManager = $doctrine->getManager();
         $treeRepository = $doctrine->getRepository(Tree::class);
@@ -103,7 +105,7 @@ class AdminController extends AbstractController
         // upload tree-pictures and persist their path
         $files = $request->files;
         $pictures = $files->get("pictures");
-        $this->persistTreePicturesForGivenTree($newTree, $pictures, $treePicsDirFull, $entityManager);
+        $this->persistTreePictureUploadsForGivenTree($newTree, $pictures, $treePicsDirFull, $entityManager);
 
         $entityManager->persist($newTree);
         $entityManager->flush();
@@ -116,8 +118,6 @@ class AdminController extends AbstractController
      */
     public function adminEditTreeAction($id, Request $request, string $treePicsDirFull)
     {
-        // TODO check if authenticated
-
         $doctrine = $this->getDoctrine();
         $entityManager = $doctrine->getManager();
         $treeRepository = $doctrine->getRepository(Tree::class);
@@ -156,12 +156,167 @@ class AdminController extends AbstractController
         $this->deletePicturesByPostParamsForGivenTree($tree, $postParams, $treePicsDirFull, $entityManager, $treePicturesRepository);
         $files = $request->files;
         $newPictures = $files->get("pictures");
-        $this->persistTreePicturesForGivenTree($tree, $newPictures, $treePicsDirFull, $entityManager);
+        $this->persistTreePictureUploadsForGivenTree($tree, $newPictures, $treePicsDirFull, $entityManager);
 
         $entityManager->persist($tree);
         $entityManager->flush();
 
         return $this->redirectToRoute('admin_index');
+    }
+
+    /**
+     * @Route("/admin/uploadCsvResult", name="admin_upload_csv", methods={"POST", "GET"})
+     */
+    public function adminUploadCsvAction(Request $request, string $treePicsDirFull, string $rawTreePicsForCsvDirFull)
+    {
+        /*
+        $this   // SQL-DEBUGGER
+        ->get('doctrine')
+            ->getConnection()
+            ->getConfiguration()
+            ->setSQLLogger(new \Doctrine\DBAL\Logging\EchoSQLLogger());
+        */
+
+        // enhance max-runtime of script to 3 mins
+        set_time_limit(180);
+
+        $doctrine = $this->getDoctrine();
+        $entityManager = $doctrine->getManager();
+        $treeRepository = $doctrine->getRepository(Tree::class);
+        $treeInformationRepository = $doctrine->getRepository(TreeInformation::class);
+        $files = $request->files;
+
+        $csvFile = $files->get("tree_list");
+        $newTreesData = $this->csv_to_array($csvFile, "~");
+
+        $errorList = array();
+
+        // create Tree for every Csv-row
+        foreach($newTreesData as $rowKey => $treeRow) {
+            $rowCount = $rowKey + 2;
+            $tree = new Tree();
+
+            $treeNameKeyword = "Baumname";
+            $treeName = trim( utf8_encode( $treeRow[$treeNameKeyword] ) );
+            unset($treeRow[$treeNameKeyword]);
+
+            // error if treeName is empty
+            if(empty($treeName)) {
+                array_push(
+                    $errorList,
+                    "Row $rowCount: required field $treeNameKeyword is empty! Row skipped!"
+                );
+
+                continue; // skip whole row
+            }
+
+            // error if treeName is not unique
+            $doppelgaenger = $treeRepository->findOneBy(["name" => $treeName]);
+            if($doppelgaenger !== null){
+                array_push(
+                    $errorList,
+                    "Row $rowCount: Tree with $treeNameKeyword: '$treeName' allready exists in Database - Row skipped!"
+                );
+
+                continue; // skip whole row
+            }
+
+            $tree->setName($treeName);
+
+            // save all other attributes as TreeInformation entities
+            foreach($treeRow as $informationNameRaw => $informationValuesStringRaw) {
+                $informationName = trim( utf8_encode($informationNameRaw) );
+                $informationValuesString = trim( utf8_encode($informationValuesStringRaw) );
+
+                if($informationName && $informationValuesString) {
+
+                    $informationValues = explode(";", $informationValuesString);
+
+                    foreach ($informationValues as $informationValue) {
+                        $informationValue = trim($informationValue);
+
+                        if ($informationValue) {
+                            $newInformation = $treeInformationRepository->findOneBy(array(
+                                    'name' => $informationName,
+                                    'value' => $informationValue)
+                            );
+
+                            if ($newInformation === null) {
+                                $newInformation = new TreeInformation();
+                                $newInformation->setName($informationName);
+                                $newInformation->setValue($informationValue);
+                                $entityManager->persist($newInformation);
+
+                            }
+                            $tree->addInformation($newInformation);
+                        }
+                    }
+                }
+            }
+
+            // copy Tree-Pictures to their public destination
+            $fileSystem = new Filesystem();
+            $finder = new Finder();
+
+            $rawTreePicsDirForThisTree = $rawTreePicsForCsvDirFull . "/" . $treeName;
+            $rawTreePicsDirectoryWasFound = $fileSystem->exists($rawTreePicsDirForThisTree);
+
+            if($rawTreePicsDirectoryWasFound) {
+                $finder->files()->in($rawTreePicsDirForThisTree);
+            }
+            else{
+                array_push(
+                    $errorList,
+                    "Row $rowCount: Folder with name $treeName could not be found in directory $rawTreePicsForCsvDirFull -> "
+                    . "No Pictures are added for this tree."
+                );
+            }
+
+            if($rawTreePicsDirectoryWasFound && $finder->hasResults()) {
+
+                foreach ($finder as $rawPic) {
+                    $rawPicPath = $rawPic->getRealPath();
+
+                    $newPicExtension = strtolower($rawPic->getExtension());
+                    $newPicFilename = uniqid();
+                    $newPicFilenamePlusExtension = $newPicFilename . "." . $newPicExtension;
+                    $newPicPath = $treePicsDirFull . "/" . $newPicFilenamePlusExtension;
+                    $newPicIsImageType = in_array($newPicExtension, self::ALLOWED_PICTURE_EXTENSIONS);
+
+                    if($newPicIsImageType) {
+                        try {
+                            $fileSystem->copy($rawPic->getRealPath(), $newPicPath, true);
+
+                            $newPicEntity = new TreePicture();
+                            $newPicEntity->setPath($newPicFilenamePlusExtension);
+                            $entityManager->persist($newPicEntity);
+                            $tree->addPicture($newPicEntity);
+                        } catch (IOExceptionInterface $exception) {
+                            array_push(
+                                $errorList,
+                                "Row $rowCount: Unknown Error while copying picture-file $rawPicPath to $newPicPath - "
+                                . "Picture skipped! --- " . $exception->getPath()
+                            );
+                        }
+                    }
+                    else{
+                        array_push(
+                            $errorList,
+                            "Row $rowCount: File '$rawPicPath' does not have one of the allowed picture-extensions (" . implode(",", self::ALLOWED_PICTURE_EXTENSIONS) . ") - "
+                            . "Picture skipped!"
+                        );
+                    }
+                }
+            }
+
+            $entityManager->persist($tree);
+        }
+
+        $entityManager->flush();
+
+        return $this->render('admin/admin_upload_csv_result.html.twig', [
+            "errors" => $errorList
+        ]);
     }
 
 
@@ -259,18 +414,19 @@ class AdminController extends AbstractController
     }
 
     /**
+     * persists pictures from a http-file-input for given tree
      * @param $tree
-     * @param $pictures
+     * @param $pictures File[] uploaded picture-files via http-request
      * @param $treePicsDirFull
      * @param $entityManager
      */
-    private function persistTreePicturesForGivenTree($tree, $pictures, $treePicsDirFull, $entityManager) {
+    private function persistTreePictureUploadsForGivenTree($tree, $pictures, $treePicsDirFull, $entityManager) {
 
         foreach ($pictures as $pic) {
             $filename = uniqid();
             $extension = strtolower($pic->guessExtension());
             $path = $filename . "." . $extension;
-            $isImageType = in_array($extension, array("png", "gif", "jpg", "jpeg", "webp"));
+            $isImageType = in_array($extension, self::ALLOWED_PICTURE_EXTENSIONS);
 
             if ($isImageType) {
                 $pic->move($treePicsDirFull, $path);
@@ -280,6 +436,31 @@ class AdminController extends AbstractController
                 $entityManager->persist($newTreePicture);
             }
         }
+    }
+
+    /**
+     * Thanks to jaywilliams: http://gist.github.com/385876
+     */
+    private function csv_to_array($filename='', $delimiter=',')
+    {
+        if(!file_exists($filename) || !is_readable($filename)) {
+            return FALSE;
+        }
+
+        $header = NULL;
+        $data = array();
+        if (($handle = fopen($filename, 'r')) !== FALSE)
+        {
+            while (($row = fgetcsv($handle, 1000, $delimiter)) !== FALSE)
+            {
+                if(!$header)
+                    $header = $row;
+                else
+                    $data[] = array_combine($header, $row);
+            }
+            fclose($handle);
+        }
+        return $data;
     }
 
 
