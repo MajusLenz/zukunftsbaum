@@ -8,31 +8,74 @@
 {% block mainClass %}landing{% endblock %}
 
 {% block main %}
-
-    <p>
-        Das hier ist der Inhalt der Landing-Page!!!
-    </p>
-
-    {% for i in 1..5 %}
-        <div>
-            <strong>
-                {{ testString }}
-            </strong>
+<div class="container">
+    <div class="row home-section">
+        <div class="col-sm-6">
+            <h2 class="main-title">Verbessern Sie mit uns das Stadtklima!</h2>
+            <p class="description-text">Sie möchten einen Baum Pflanzen aber wissen nicht welcher der richte für Sie ist? Dann nutzen Sie unseren Baum-o-Mat! Mit Hilfe unseres Baum-o-Mat finden Sie den perfekten Baum Helfen Sie mit die Welt wieder etwas Grüner werden zu lassen.</p>
+            <div class="row btn-row">
+                <a href="#" class="button">Zum Baumomat</a>
+            </div>
         </div>
-    {% endfor %}
-
-    <br/>
-
-    {% for index, entry in testArray %}
-        <div>
-            {{ index }}: {{ entry }}
+        <div class="col-sm-6">
+            <img src="planet.svg" class="home-pic">
         </div>
-    {% endfor %}
+    </div>
+    <!-- End of Baumomat Section  -->
 
-    <br/>
+    <!-- tipps Section  -->
+    <div class="row home-section">
+        <div class="col-sm-6">
+            <img src="watering_plants.svg" class="home-pic">
+        </div>
+        <div class="col-sm-6">
+            <h2 class="title">Du m&ouml;chtest noch mehr tun?</h2>
+            <p class="description-text">Oder du hast zur Zeit keine Möglichkeit einen Baum zu pflanzen?<br>
+                Hier ist noch etwas was du für unser Klima machen kannst: such dir eine Spendeaktion aus und informiere dich wie du noch helfen kannst</p>
+            <div class="row btn-row">
+                <a href="" class="button">Spenden</a>
+            </div>
+        </div>
+    </div>
+    <!-- End of tipps Section  -->
 
+    <!-- Über Uns Section -->
+    <div class="row home-section about-us">
+        <div class="col-12" style="text-align: center;">
+            <h2 class="title">Zukunftsbaum Düsseldorf</h2>
+        </div>
+        <div class="col-sm-6">
+            <p class="description-text">
+                Wir sind Studierende, Auszubildende und junge Berufstätige aus Düsseldorf, die im Rahmen des Innovationssemesters der Wissensregion Düsseldorf das Projekt Zukunftsbaum-Düsseldorf.de gestartet haben. Damit möchten wir einen Lösungsbeitrag zu einer der größten Herausforderungen unserer Generation, dem Klimawandel, beisteuern. Sehr viele Bäume müssen gepflanzt werden, nicht nur in allen Wäldern der Erde, sondern auch in unserer direkten Nachbarschaft.
+            </p>
+        </div>
+        <div class="col-sm-6">
+            <p class="description-text">
+                Jeder Stadtbaum hat das große Potenzial das Klima zu verbessern, CO2 zu speichern und unsere Stadt lebenswerter zu gestalten. Wir möchten ein grüneres Düsseldorf! Die Grundlage hierfür bietet das Gartenamt Düsseldorf mit der Zukunftsbaumliste. Aber nicht nur die Stadtverwaltung soll zukünftig mit der Liste arbeiten. Wir bieten Ihnen eine leicht zugängliche und überarbeitete Version und freuen uns über jeden dadurch gepflanzten Baum.
+            </p>
+        </div>
 
-    {# TODO #}
+    </div>
+        <div class="col-12">
+            <img src="trees.svg" class="home-pic-small">
+        </div>
+    </div>
+    <!-- End of Über Uns Section -->
+    <!-- Spenden Section  -->
+    <div class="row home-section">
+        <div class="col-sm-6">
+            <img src="watering_plants.svg" class="home-pic">
+        </div>
+        <div class="col-sm-6">
+            <h2 class="title">Du m&ouml;chtest noch mehr tun?</h2>
+            <p class="description-text">Oder du hast zur Zeit keine Möglichkeit einen Baum zu pflanzen?<br>
+                Hier ist noch etwas was du für unser Klima machen kannst: such dir eine Spendeaktion aus und informiere dich wie du noch helfen kannst</p>
+            <div class="row btn-row">
+                <a href="" class="button">Spenden</a>
+            </div>
+        </div>
+    </div>
+    <!-- End of Spenden Section  -->
 
 
 {% endblock %}

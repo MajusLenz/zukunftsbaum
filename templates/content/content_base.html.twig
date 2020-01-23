@@ -9,10 +9,36 @@
 {% block body %}
 
     <header>
-        <h1>Dies ist der Header</h1>
-
-        {# TODO #}
-
+            <div class="container">
+                <!-- Navigation  -->
+                <nav class="navbar navbar-expand-md fixed-top">
+                    <a href="" class="navbar-brand"><img src="logo.jpeg" class="logo"></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                        <span class="navbar-toggler-icon"><img src="burger-menu.svg" class="icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Baum-O-Mat</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Baumliste</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Projekte &amp; Aktuelles</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Spenden</a>
+                            </li>
+                            <!--
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Wunschliste</a>
+                            </li>
+                            -->
+                        </ul>
+                    </div>
+                </nav>
+            </div>
     </header>
 
     <main class="{% block mainClass %}{% endblock %}">
@@ -20,10 +46,15 @@
     </main>
 
     <footer>
-        <small>Dies ist der Footer</small>
-
-        {# TODO #}
-
+        <footer class="footer1">
+            <div class="nav">
+                <a class="item2" href="{{ path('landing') }}">Kontakt</a>
+                <a class="item2" href="/Footer/Community.html">Community</a>
+                <a class="item2" href="/Footer/Impressum.html">Impressum</a>
+                <a class="item2" href="/Footer/Datenschutz.html">Datenschutz</a>
+                <a class="item2" href="/Footer/Cookies.html">Cookies</a>
+            </div>
+        </footer>
     </footer>
 
 {% endblock %}
