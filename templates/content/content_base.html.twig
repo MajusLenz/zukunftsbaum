@@ -46,15 +46,39 @@
     </main>
 
     <footer>
-        <footer class="footer1">
-            <div class="nav">
-                <a class="item2" href="{{ path('landing') }}">Kontakt</a>
-                <a class="item2" href="/Footer/Community.html">Community</a>
-                <a class="item2" href="/Footer/Impressum.html">Impressum</a>
-                <a class="item2" href="/Footer/Datenschutz.html">Datenschutz</a>
-                <a class="item2" href="/Footer/Cookies.html">Cookies</a>
+        <!-- Footer  -->
+        <div class="row footer">
+            <div class="col-sm-6 footer-col">
+                <a href="" class="footer-title">Community</a>
+                <a href="" class="footer-title">Kontakt</a
             </div>
-        </footer>
+            <div class="col-sm-6 footer-col">
+                <a href="" class="footer-title">Impressum</a>
+                <a href="" class="footer-title">Datenschutz</a>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h6 class="small-text">Zukunftsbaum D&uuml;sseldorf 2020</h6>
+                </div>
+            </div>
+        </div>
+        <!-- End of Footer -->
     </footer>
+
+    <script type="text/javascript">
+        $(window).scroll(function(){
+            var scroll = $(window).scrollTop();
+            if (scroll > 10) {
+                $(".navbar").addClass("navbar-scrolled");
+                // $(".nav-link").css("color" , "#ffffff");
+            }
+
+            else{
+                $(".navbar").removeClass("navbar-scrolled");
+                // $(".nav-link").css("color" , "#ffffff");
+
+            }
+        })
+    </script>
 
 {% endblock %}
