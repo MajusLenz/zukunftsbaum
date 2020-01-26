@@ -17,7 +17,9 @@ class SearchOutputController extends AbstractController{
      */
     public function searchOutputAction() {
 
+        return $this->render('content/searchOutput/searchOutput.html.twig', [
 
+        ]);
     }
 
 
