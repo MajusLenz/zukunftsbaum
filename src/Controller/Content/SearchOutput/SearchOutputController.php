@@ -13,9 +13,9 @@ use App\Entity\TreeInformation;
 class SearchOutputController extends AbstractController{
 
     /**
-     * @Route("/SearchOutput", name="Output")
+     * @Route("/searchOutput", name="search_output")
      */
-    public function OutputAction() {
+    public function searchOutputAction() {
 
 
     }
