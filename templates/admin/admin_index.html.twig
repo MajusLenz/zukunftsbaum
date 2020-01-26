@@ -20,7 +20,7 @@
     <form class="admin-new-tree-form" method="POST" action="{{ path('admin_new_tree') }}" enctype="multipart/form-data">
         <label>
             Name:
-            <input class="admin-new-tree-name" name="name" type="text" required="required" autofocus="autofocus"/>
+            <input class="admin-new-tree-name" name="name" type="text" required="required"/>
         </label>
         <label>
             Bilder:
@@ -241,4 +241,9 @@
     <br/>
     <br/>
 
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="{{ asset('assets/js/admin.scripts.js') }}"></script>
 {% endblock %}
