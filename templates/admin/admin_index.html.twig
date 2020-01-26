@@ -15,6 +15,8 @@
 {% block body %}
     <h1>Administrator-Bereich</h1>
     <a href="{{ path('app_logout') }}">logout</a>
+    <br/>
+    <br/>
 
     <h2>Baum erstellen</h2>
     <form class="admin-new-tree-form" method="POST" action="{{ path('admin_new_tree') }}" enctype="multipart/form-data">
@@ -52,10 +54,11 @@
         <div class="admin-new-tree-informations"></div>
 
         <br/>
-        <br/>
         <button type="submit">Baum erstellen</button>
         <button type="reset">Eingaben löschen</button>
     </form>
+    <br/>
+    <br/>
 
 
     <h2>Baum-Übersicht</h2>
@@ -236,6 +239,7 @@
             <h3>CSV-Datei mit Bauminformationen hochladen:</h3>
             <input class="admin-upload-csv-input" name="tree_list" type="file" required="required"/>
         </label>
+        <br/>baum
         <button type="submit">Bäume erstellen</button>
     </form>
     <br/>
