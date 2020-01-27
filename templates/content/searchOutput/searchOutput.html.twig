@@ -1,12 +1,12 @@
 {% extends "content/content_base.html.twig" %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('assets/css/searchoutput.styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/searchOutput.styles.css') }}">
 {% endblock %}
 
 {% block title %}
     {{ parent() }}
-    Output
+    Suchergebnis
 {% endblock %}
 
 {% block mainClass %}searchOutput{% endblock %}
@@ -16,7 +16,7 @@
     <div class="space"></div>
     <!-- #### Select Menü um die Filter neu zu setzen #### -->
     <div class="dropdown">
-        <form class="option" action=""> <!-- ERGÄNZEN WAS PASSIERT z.B. action="/action_page.php"-->
+        <form class="option search-output-form" action="#">
 
             <label for="height"></label>
             <select id="height" class="quest" required>
@@ -28,11 +28,11 @@
                     20 bis 30 m
                     über 30 m-->
                 <option value="" disabled selected>Höhe</option>
-                <option class="option" value="0-5">0 bis 5</option>
-                <option class="option" value="6-10">5 bis 10</option>
-                <option class="option" value="10-20">10 bis 20 m</option>
-                <option class="option" value="10-20">20 bis 30 m</option>
-                <option class="option" value="20+">über 30 m </option>
+                <option class="option" value="0 bis 5 m">0 bis 5 m</option>
+                <option class="option" value="5 bis 10 m">5 bis 10 m</option>
+                <option class="option" value="10 bis 20 m">10 bis 20 m</option>
+                <option class="option" value="20 bis 30 m">20 bis 30 m</option>
+                <option class="option" value="über 30 m">über 30 m</option>
             </select>
 
             <label for="width"></label>
@@ -44,10 +44,10 @@
                     11 bis 20 m
                     über 20 m-->
                 <option value="" disabled selected>Breite</option>
-                <option class="option" value="0-5">0 bis 5</option>
-                <option class="option" value="5-10">5 bis 10</option>
-                <option class="option" value="10-20">10 bis 20 m</option>
-                <option class="option" value="20+">über 20 m </option>
+                <option class="option" value="0 bis 5">0 bis 5</option>
+                <option class="option" value="5 bis 10">5 bis 10</option>
+                <option class="option" value="10 bis 20 m">10 bis 20 m</option>
+                <option class="option" value="über 20 m">über 20 m</option>
             </select>
 
             <label for="light"></label>
@@ -59,10 +59,10 @@
                     Halbschatten
                     Schatten-->
                 <option value="" disabled selected>Lichtbedarf</option>
-                <option class="option" value="Sonne"> Sonne </option>
-                <option class="option" value="LiSchatten"> Lichter Schatten </option>
-                <option class="option" value="Halbschatten"> Halbschatten </option>
-                <option class="option" value="Schatten"> Schatten </option>
+                <option class="option" value="Sonne">Sonne</option>
+                <option class="option" value="Lichter Schatten">Lichter Schatten</option>
+                <option class="option" value="Halbschatten">Halbschatten</option>
+                <option class="option" value="Schatten">Schatten</option>
             </select>
 
             <label for="bees"></label>
@@ -74,13 +74,13 @@
                     3-5  = mittel
                     0-2  = gering oder unbekannt -->
                 <option value="" disabled selected>Bienenweide</option>
-                <option class="option" value="sgut"> sehr gut </option>
-                <option class="option" value="gut"> gut </option>
-                <option class="option" value="mittel"> mittel </option>
-                <option class="option" value="gering"> gering </option>
+                <option class="option" value="sehr gut">sehr gut</option>
+                <option class="option" value="gut">gut</option>
+                <option class="option" value="mittel">mittel</option>
+                <option class="option" value="gering">gering</option>
             </select>
 
-            <input class="buttonS" type="submit" value="Submit">
+            <input class="buttonS" type="submit" value="Suchen">
         </form>
     </div>
 
@@ -88,118 +88,19 @@
     <!-- ### Start der Profil Ausgabe bzw. such ausgabe ### -->
     <div class="parent">
         <div class="row1">
-            <!--
-            ###########################################
-            ####### BEISPIEL PROFIEL / AUSGABE! #######
-            #################(Anfang)#################
-            -->
-            <a class="item" href="link_zum_baum_profil.html">
-                Tanne
-                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
-            </a>
-            <a class="item" href="link_zum_baum_profil.html">
-                Tanne
-                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
-            </a>
-            <a class="item" href="link_zum_baum_profil.html">
-                Tanne
-                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
-            </a>
-            <a class="item" href="link_zum_baum_profil.html">
-                Tanne
-                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
-            </a>
-            <a class="item" href="link_zum_baum_profil.html">
-                Tanne
-                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
-            </a>
-            <a class="item" href="link_zum_baum_profil.html">
-                Tanne
-                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
-            </a>
-            <a class="item" href="link_zum_baum_profil.html">
-                Tanne
-                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
-            </a>
-            <a class="item" href="link_zum_baum_profil.html">
-                Tanne
-                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
-            </a>
-            <a class="item" href="link_zum_baum_profil.html">
-                Tanne
-                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
-            </a>
-            <a class="item" href="link_zum_baum_profil.html">
-                Tanne
-                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
-            </a>
-            <a class="item" href="link_zum_baum_profil.html">
-                Tanne
-                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
-            </a>
-            <a class="item" href="link_zum_baum_profil.html">
-                Tanne
-                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
-            </a>
-            <a class="item" href="link_zum_baum_profil.html">
-                Tanne
-                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
-            </a>
-            <a class="item" href="link_zum_baum_profil.html">
-                Tanne
-                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
-            </a>
-            <a class="item" href="link_zum_baum_profil.html">
-                Tanne
-                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
-            </a>
-            <a class="item" href="link_zum_baum_profil.html">
-                Tanne
-                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
-            </a>
-            <a class="item" href="link_zum_baum_profil.html">
-                Tanne
-                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
-            </a>
-            <a class="item" href="link_zum_baum_profil.html">
-                Tanne
-                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
-            </a>
-            <a class="item" href="link_zum_baum_profil.html">
-                Tanne
-                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
-            </a>
-            <a class="item" href="link_zum_baum_profil.html">
-                Tanne
-                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
-            </a>
-            <a class="item" href="link_zum_baum_profil.html">
-                Tanne
-                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
-            </a>
-            <a class="item" href="link_zum_baum_profil.html">
-                Tanne
-                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
-            </a>
-            <a class="item" href="link_zum_baum_profil.html">
-                Tanne
-                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
-            </a>
-            <a class="item" href="link_zum_baum_profil.html">
-                Tanne
-                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
-            </a>
-            <a class="item" href="link_zum_baum_profil.html">
-                Tanne
-                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
-            </a>
-
-            <!--
-            ###########################################
-            ####### BEISPIEL ###### E N D E ###########
-            ###########################################
-            -->
+            {% for tree in trees %}
+                <a class="item" href="{{ path('detail', {'id': tree.id}) }}">
+                    {{ tree.name }}
+                    <img class="itemPix" src="{% if tree.pictures|length > 0 %}{{ asset(treePicsDir ~ tree.pictures[0].path) }}{% endif %}" alt="">
+                </a>
+            {% endfor %}
         </div>
     </div>
 
 {% endblock %}
+
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('assets/js/content.searchOutput.scripts.js') }}"></script>
+{% endblock %}
+

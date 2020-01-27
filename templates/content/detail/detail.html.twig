@@ -1,0 +1,43 @@
+{% extends "content/content_base.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/detail.styles.css') }}">
+{% endblock %}
+
+{% block title %}
+    {{ parent() }}
+    {{ tree.name }}
+{% endblock %}
+
+{% block mainClass %}detail{% endblock %}
+
+
+{% block main %}
+
+    <br/><br/><br/>
+    <br/><br/><br/>
+
+    DETAIL
+    {{ tree.name }}
+    <br/>
+    {{ tree.id }}
+    <br/>
+    <br/>
+
+    Infos:
+    <br/>
+    {% for info in tree.informations %}
+        {{ info.name }}: {{ info.value }}
+        <br/>
+    {% endfor %}
+    <br/>
+
+    Pictures:
+    <br/>
+    {% for pic in tree.pictures %}
+        <img src="{{ asset(treePicsDir ~ pic.path) }}" alt="" width="200px"/>
+        <br/>
+    {% endfor %}
+
+{% endblock %}
+
