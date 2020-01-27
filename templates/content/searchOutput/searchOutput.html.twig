@@ -1,0 +1,205 @@
+{% extends "content/content_base.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/css/searchoutput.styles.css') }}">
+{% endblock %}
+
+{% block title %}
+    {{ parent() }}
+    Output
+{% endblock %}
+
+{% block mainClass %}searchOutput{% endblock %}
+
+{% block main %}
+
+    <div class="space"></div>
+    <!-- #### Select Menü um die Filter neu zu setzen #### -->
+    <div class="dropdown">
+        <form class="option" action=""> <!-- ERGÄNZEN WAS PASSIERT z.B. action="/action_page.php"-->
+
+            <label for="height"></label>
+            <select id="height" class="quest" required>
+                <!--Wuchs Höhe des Baums -->
+                <!--Werte:
+                    0 bis 5 m
+                    5 bis 10 m
+                    10 bis 20 m
+                    20 bis 30 m
+                    über 30 m-->
+                <option value="" disabled selected>Höhe</option>
+                <option class="option" value="0-5">0 bis 5</option>
+                <option class="option" value="6-10">5 bis 10</option>
+                <option class="option" value="10-20">10 bis 20 m</option>
+                <option class="option" value="10-20">20 bis 30 m</option>
+                <option class="option" value="20+">über 30 m </option>
+            </select>
+
+            <label for="width"></label>
+            <select id="width" class="quest" required>
+                <!-- Wuchs Breite der Baumkrone -->
+                <!--Werte:
+                    0 bis 5 m
+                    6 bis 10 m
+                    11 bis 20 m
+                    über 20 m-->
+                <option value="" disabled selected>Breite</option>
+                <option class="option" value="0-5">0 bis 5</option>
+                <option class="option" value="5-10">5 bis 10</option>
+                <option class="option" value="10-20">10 bis 20 m</option>
+                <option class="option" value="20+">über 20 m </option>
+            </select>
+
+            <label for="light"></label>
+            <select id="light" class="quest" required>
+                <!-- Lichtbedarf -->
+                <!--Werte:
+                    Sonne
+                    Lichter Schatten
+                    Halbschatten
+                    Schatten-->
+                <option value="" disabled selected>Lichtbedarf</option>
+                <option class="option" value="Sonne"> Sonne </option>
+                <option class="option" value="LiSchatten"> Lichter Schatten </option>
+                <option class="option" value="Halbschatten"> Halbschatten </option>
+                <option class="option" value="Schatten"> Schatten </option>
+            </select>
+
+            <label for="bees"></label>
+            <select id="bees" class="quest" required>
+                <!-- Bienenfreundlichkeit -->
+                <!--Werte:
+                    9-10 = Sehr gut
+                    6-8  = Gut
+                    3-5  = mittel
+                    0-2  = gering oder unbekannt -->
+                <option value="" disabled selected>Bienenweide</option>
+                <option class="option" value="sgut"> sehr gut </option>
+                <option class="option" value="gut"> gut </option>
+                <option class="option" value="mittel"> mittel </option>
+                <option class="option" value="gering"> gering </option>
+            </select>
+
+            <input class="buttonS" type="submit" value="Submit">
+        </form>
+    </div>
+
+
+    <!-- ### Start der Profil Ausgabe bzw. such ausgabe ### -->
+    <div class="parent">
+        <div class="row1">
+            <!--
+            ###########################################
+            ####### BEISPIEL PROFIEL / AUSGABE! #######
+            #################(Anfang)#################
+            -->
+            <a class="item" href="link_zum_baum_profil.html">
+                Tanne
+                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
+            </a>
+            <a class="item" href="link_zum_baum_profil.html">
+                Tanne
+                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
+            </a>
+            <a class="item" href="link_zum_baum_profil.html">
+                Tanne
+                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
+            </a>
+            <a class="item" href="link_zum_baum_profil.html">
+                Tanne
+                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
+            </a>
+            <a class="item" href="link_zum_baum_profil.html">
+                Tanne
+                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
+            </a>
+            <a class="item" href="link_zum_baum_profil.html">
+                Tanne
+                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
+            </a>
+            <a class="item" href="link_zum_baum_profil.html">
+                Tanne
+                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
+            </a>
+            <a class="item" href="link_zum_baum_profil.html">
+                Tanne
+                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
+            </a>
+            <a class="item" href="link_zum_baum_profil.html">
+                Tanne
+                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
+            </a>
+            <a class="item" href="link_zum_baum_profil.html">
+                Tanne
+                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
+            </a>
+            <a class="item" href="link_zum_baum_profil.html">
+                Tanne
+                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
+            </a>
+            <a class="item" href="link_zum_baum_profil.html">
+                Tanne
+                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
+            </a>
+            <a class="item" href="link_zum_baum_profil.html">
+                Tanne
+                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
+            </a>
+            <a class="item" href="link_zum_baum_profil.html">
+                Tanne
+                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
+            </a>
+            <a class="item" href="link_zum_baum_profil.html">
+                Tanne
+                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
+            </a>
+            <a class="item" href="link_zum_baum_profil.html">
+                Tanne
+                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
+            </a>
+            <a class="item" href="link_zum_baum_profil.html">
+                Tanne
+                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
+            </a>
+            <a class="item" href="link_zum_baum_profil.html">
+                Tanne
+                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
+            </a>
+            <a class="item" href="link_zum_baum_profil.html">
+                Tanne
+                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
+            </a>
+            <a class="item" href="link_zum_baum_profil.html">
+                Tanne
+                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
+            </a>
+            <a class="item" href="link_zum_baum_profil.html">
+                Tanne
+                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
+            </a>
+            <a class="item" href="link_zum_baum_profil.html">
+                Tanne
+                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
+            </a>
+            <a class="item" href="link_zum_baum_profil.html">
+                Tanne
+                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
+            </a>
+            <a class="item" href="link_zum_baum_profil.html">
+                Tanne
+                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
+            </a>
+            <a class="item" href="link_zum_baum_profil.html">
+                Tanne
+                <img class="itemPix" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild vorhanden">
+            </a>
+
+            <!--
+            ###########################################
+            ####### BEISPIEL ###### E N D E ###########
+            ###########################################
+            -->
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,88 @@
+/*-------------------------------- Erstellung der Kacheln in Suchausgabe bereich ---------------------------------*/
+
+.item {
+    height: 170px;
+    width: 170px;
+    margin-left: 5px;
+	margin-right: 5px;
+    margin-top: 10px;
+	margin-bottom: 5px;
+    background-color: rgb(0, 105, 0);
+    color: rgb(255, 255, 255);
+    border-radius: 6px;
+	text-align: center;
+	line-height: 20px;
+	padding-top: 5px;
+	text-decoration: none;
+}
+
+.itemPix {
+	height: inherit;
+	width: inherit;
+	clip-path: inset(5% 5% 20% 5% round 6px);
+}
+
+
+/* FLEX BOX Regeln */
+
+.parent {
+    height: auto;
+    display: flex;
+    justify-content: center;
+    flex-flow: wrap;  
+}
+
+.row1 {
+    max-width: 900px;
+    height: auto;
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    flex-flow: wrap;
+}
+
+/* --------------------------------------------------ENDE-------------------------------------------------- */
+
+
+/* ----------------------------------------------DropDown Menü--------------------------------------------- */
+
+/* Style select boxen */
+.quest {
+	background-color: rgb(0, 105, 0);
+	color: white;
+	padding: 16px;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	margin-left: 5px;
+	margin-bottom: 5px;
+	width: 155px;
+	height: auto;
+}
+
+/* container <div> - für positionierung */
+.dropdown { 
+	display: flex;
+	justify-content: center;
+	flex-flow: wrap;
+	border: none;
+	padding: 0.5em;
+}
+
+.buttonS {
+	float: right;
+	padding: inherit;
+	margin-left: 50px;
+	width: 100px;
+	height: 50px;
+	border: solid green 2px;
+	border-radius: 6px;
+}
+
+/* --------------------------------------------------ENDE-------------------------------------------------- */
+
+/* platzhalter für header */
+
+.space {
+	margin-top: 120px;
+}
