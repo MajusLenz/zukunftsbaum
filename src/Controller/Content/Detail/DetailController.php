@@ -25,6 +25,8 @@ class DetailController extends AbstractController{
             throw new NotFoundHttpException("Tree not found!");
         }
 
+        // TODO transform "20+" etc. in vernünftige wörter
+
         return $this->render('content/detail/detail.html.twig', [
             "treePicsDir" => $treePicsDir . "/",
             "tree" => $tree

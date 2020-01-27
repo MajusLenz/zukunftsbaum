@@ -13,7 +13,7 @@ use App\Entity\TreeInformation;
 class SearchOutputController extends AbstractController{
 
     /**
-     * @Route("/searchOutput", name="search_output")
+     * @Route("/suchergebnis", name="search_output")
      */
     public function searchOutputAction(string $treePicsDir) {
 
