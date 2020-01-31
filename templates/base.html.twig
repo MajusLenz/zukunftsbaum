@@ -1,6 +1,6 @@
 {# Global Twig-Variables: #}
-{% set optionalInformationNames = ["Farbe", "Wasserverbrauch"] %}
-{% set requiredInformationNames = ["Höhe", "Breite", "Lichtbedarf", "Bienenweide"] %}
+{% set optionalInformationNames = ["Baumname Wissenschaftlich", "Kategorie", "Herkunft", "Lichtdurchlässigkeit", "Bemerkung"] %}
+{% set requiredInformationNames = ["Wuchshöhe", "Wuchsbreite", "Lichtbedarf", "Bienenweide"] %}
 {% set allInformationNames = requiredInformationNames|merge(optionalInformationNames) %}
 
 
@@ -11,15 +11,11 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Zukunftsbaum | {% endblock %}</title>
-
-        <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
-        {% block stylesheets %}{% endblock %}
-
-
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
-
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/styles.css') }}">
+        {% block stylesheets %}{% endblock %}
     </head>
 
     <body class="{% block bodyClass %}{% endblock %}">
@@ -28,10 +24,10 @@
             default
         {% endblock %}
 
-        <script src="{{ asset('assets/js/jquery-3.4.1.min.js') }}"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-        <script src="{{ asset('assets/js/scripts.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/jquery-3.4.1.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/popper.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/scripts.js') }}"></script>
         {% block javascripts %}{% endblock %}
 
     </body>

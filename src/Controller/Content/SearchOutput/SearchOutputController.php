@@ -23,7 +23,7 @@ class SearchOutputController extends AbstractController{
         $trees = $doctrine->getRepository(Tree::class)->findAll();
 
         // find informations that should be searched with and save them in extra place to make them better accessible for twig
-        $searchableInformationNames = ["Höhe", "Breite", "Lichtbedarf", "Bienenweide"];
+        $searchableInformationNames = ["Wuchshöhe", "Wuchsbreite", "Lichtbedarf", "Bienenweide"];
 
         foreach($trees as $index => $tree) {
             $searchableInformations = array();

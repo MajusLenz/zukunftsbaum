@@ -165,7 +165,7 @@ class AdminController extends AbstractController {
     }
 
     /**
-     * @Route("/admin/uploadCsvResult", name="admin_upload_csv", methods={"POST", "GET"})
+     * @Route("/admin/uploadCsvResult", name="admin_upload_csv", methods={"POST"})
      */
     public function adminUploadCsvAction(Request $request, string $treePicsDirFull, string $rawTreePicsForCsvDirFull)
     {
@@ -228,14 +228,14 @@ class AdminController extends AbstractController {
                 $informationName = trim( utf8_encode($informationNameRaw) );
                 $informationValuesString = trim( utf8_encode($informationValuesStringRaw) );
 
-                if($informationName && $informationValuesString) {
+                if($informationName && ($informationValuesString || $informationValuesString === 0 || $informationValuesString === "0")) {
 
                     $informationValues = explode(";", $informationValuesString);
 
                     foreach ($informationValues as $informationValue) {
                         $informationValue = trim($informationValue);
 
-                        if ($informationValue) {
+                        if ($informationValue || $informationValue === "0" || $informationValue === 0) {
                             $newInformation = $treeInformationRepository->findOneBy(array(
                                     'name' => $informationName,
                                     'value' => $informationValue)
@@ -310,6 +310,7 @@ class AdminController extends AbstractController {
             }
 
             $entityManager->persist($tree);
+            $entityManager->flush();
         }
 
         $entityManager->flush();

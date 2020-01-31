@@ -19,7 +19,7 @@
         <form class="option search-output-form" action="#">
 
             <label for="height"></label>
-            <select id="height" class="Höhe-input quest search-output-form-input" required="required" name="Höhe">
+            <select id="height" class="Höhe-input quest search-output-form-input range-input" required="required" name="Wuchshöhe">
                 <!--Wuchs Höhe des Baums -->
                 <!--Werte:
                     0 bis 5 m
@@ -39,7 +39,7 @@
             </select>
 
             <label for="width"></label>
-            <select id="width" class="Breite-input quest search-output-form-input" required="required" name="Breite">
+            <select id="width" class="Breite-input quest search-output-form-input range-input" required="required" name="Wuchsbreite">
                 <!-- Wuchs Breite der Baumkrone -->
                 <!--Werte:
                     0 bis 5 m
@@ -57,7 +57,7 @@
             </select>
 
             <label for="light"></label>
-            <select id="light" class="Lichtbedarf-input quest search-output-form-input" required="required" name="Lichtbedarf">
+            <select id="light" class="Lichtbedarf-input quest search-output-form-input value-input" required="required" name="Lichtbedarf">
                 <!-- Lichtbedarf -->
                 <!--Werte:
                     Sonne = 4
@@ -66,14 +66,14 @@
                     Schatten = 1 -->
                 <option value="" disabled="disabled" selected="selected">Lichtbedarf</option>
                 <option class="option" value="all">Alle</option>
-                <option class="option" value="Sonne">Sonne</option>
-                <option class="option" value="Lichter Schatten">Lichter Schatten</option>
-                <option class="option" value="Halbschatten">Halbschatten</option>
-                <option class="option" value="Schatten">Schatten</option>
+                <option class="option" value="4">Sonne</option>
+                <option class="option" value="3">Lichter Schatten</option>
+                <option class="option" value="2">Halbschatten</option>
+                <option class="option" value="1">Schatten</option>
             </select>
 
             <label for="bees"></label>
-            <select id="bees" class="Bienenweide-input quest search-output-form-input" required="required" name="Bienenweide">
+            <select id="bees" class="Bienenweide-input quest search-output-form-input range-input" required="required" name="Bienenweide">
                 <!-- Bienenfreundlichkeit -->
                 <!--Werte:
                     9-10 = Sehr gut
@@ -85,10 +85,12 @@
                 <option class="option" value="9-10">sehr gut</option>
                 <option class="option" value="6-8">gut</option>
                 <option class="option" value="3-5">mittel</option>
-                <option class="option" value="0-2">gering</option>
+                <option class="option" value="0-2">gering / keine Angabe</option>
             </select>
 
+            {#
             <input class="buttonS" type="submit" value="Suchen">
+            #}
         </form>
     </div>
 
@@ -96,13 +98,13 @@
     <!-- ### Start der Profil Ausgabe bzw. such ausgabe ### -->
     <div class="parent tree-search-result">
         <div class="row1">
-            {% for tree in trees %}
+            {% for key, tree in trees %}
                 <a class="item tree-search-result-item" href="{{ path('detail', {'id': tree.id}) }}">
                     {{ tree.name }}
                     <img class="itemPix" src="{% if tree.pictures|length > 0 %}{{ asset(treePicsDir ~ tree.pictures[0].path) }}{% endif %}" alt="">
 
                     {% for searchInfo in tree.searchableInformations %}
-                        <input type="hidden" name="{{ searchInfo.name }}" value="{{ searchInfo.value }}">
+                        <input class="searchable-information" type="hidden" name="{{ searchInfo.name }}" value="{{ searchInfo.value }}">
                     {% endfor %}
                 </a>
             {% endfor %}
