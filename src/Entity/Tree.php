@@ -30,6 +30,13 @@ class Tree
     private $informations;
 
     /**
+     * Not persisted in DB. Just copies of some of the TreeInformations that are allready existent in $informations.
+     * only there for easier handling in twig.
+     * @var TreeInformation[]
+     */
+    private $searchableInformations;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -42,6 +49,7 @@ class Tree
     public function __construct()
     {
         $this->informations = new ArrayCollection();
+        $this->searchableInformations = new ArrayCollection();
         $this->setCreatedAt(new DateTime());
         $this->pictures = new ArrayCollection();
     }
@@ -137,5 +145,33 @@ class Tree
 
         return $this;
     }
+
+
+
+    /**
+     * @return TreeInformation[]
+     */
+    public function getSearchableInformations(): array
+    {
+        return $this->searchableInformations;
+    }
+
+    /**
+     * @param TreeInformation[] $searchableInformations
+     */
+    public function setSearchableInformations(array $searchableInformations): void
+    {
+        $this->searchableInformations = $searchableInformations;
+    }
+
+    public function addSearchableInformation(TreeInformation $information): self
+    {
+        if (!$this->searchableInformations->contains($information)) {
+            $this->searchableInformations[] = $information;
+        }
+
+        return $this;
+    }
+
 
 }

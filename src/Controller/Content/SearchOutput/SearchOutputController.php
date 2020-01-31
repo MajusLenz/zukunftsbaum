@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller\Content\SearchOutput;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -20,6 +21,23 @@ class SearchOutputController extends AbstractController{
         $doctrine = $this->getDoctrine();
 
         $trees = $doctrine->getRepository(Tree::class)->findAll();
+
+        // find informations that should be searched with and save them in extra place to make them better accessible for twig
+        $searchableInformationNames = ["Höhe", "Breite", "Lichtbedarf", "Bienenweide"];
+
+        foreach($trees as $index => $tree) {
+            $searchableInformations = array();
+
+            foreach($tree->getInformations() as $info) {
+                $infoIsSearchable = in_array($info->getName(), $searchableInformationNames);
+
+                if($infoIsSearchable) {
+                    $searchableInformations[] = $info;
+                }
+            }
+
+            $trees[$index]->setSearchableInformations($searchableInformations);
+        }
 
         return $this->render('content/searchOutput/searchOutput.html.twig', [
             "trees" => $trees,

@@ -19,7 +19,7 @@
         <form class="option search-output-form" action="#">
 
             <label for="height"></label>
-            <select id="height" class="quest" required>
+            <select id="height" class="Höhe-input quest search-output-form-input" required="required" name="Höhe">
                 <!--Wuchs Höhe des Baums -->
                 <!--Werte:
                     0 bis 5 m
@@ -28,7 +28,8 @@
                     20 bis 30 m
                     30 bis 45 m
                     über 45 m-->
-                <option value="" disabled selected>Höhe</option>
+                <option value="" disabled="disabled" selected="selected">Höhe</option>
+                <option class="option" value="all">Alle</option>
                 <option class="option" value="0-5">0 bis 5 m</option>
                 <option class="option" value="5-10">5 bis 10 m</option>
                 <option class="option" value="10-20">10 bis 20 m</option>
@@ -38,7 +39,7 @@
             </select>
 
             <label for="width"></label>
-            <select id="width" class="quest" required>
+            <select id="width" class="Breite-input quest search-output-form-input" required="required" name="Breite">
                 <!-- Wuchs Breite der Baumkrone -->
                 <!--Werte:
                     0 bis 5 m
@@ -46,7 +47,8 @@
                     10 bis 20 m
                     20 bis 30 m
                     über 30 m-->
-                <option value="" disabled selected>Breite</option>
+                <option value="" disabled="disabled" selected="selected">Breite</option>
+                <option class="option" value="all">Alle</option>
                 <option class="option" value="0-5">0 bis 5 m</option>
                 <option class="option" value="5-10">5 bis 10 m</option>
                 <option class="option" value="10-20">10 bis 20 m</option>
@@ -55,14 +57,15 @@
             </select>
 
             <label for="light"></label>
-            <select id="light" class="quest" required>
+            <select id="light" class="Lichtbedarf-input quest search-output-form-input" required="required" name="Lichtbedarf">
                 <!-- Lichtbedarf -->
                 <!--Werte:
                     Sonne = 4
                     Lichter Schatten = 3
                     Halbschatten = 2
                     Schatten = 1 -->
-                <option value="" disabled selected>Lichtbedarf</option>
+                <option value="" disabled="disabled" selected="selected">Lichtbedarf</option>
+                <option class="option" value="all">Alle</option>
                 <option class="option" value="Sonne">Sonne</option>
                 <option class="option" value="Lichter Schatten">Lichter Schatten</option>
                 <option class="option" value="Halbschatten">Halbschatten</option>
@@ -70,14 +73,15 @@
             </select>
 
             <label for="bees"></label>
-            <select id="bees" class="quest" required>
+            <select id="bees" class="Bienenweide-input quest search-output-form-input" required="required" name="Bienenweide">
                 <!-- Bienenfreundlichkeit -->
                 <!--Werte:
                     9-10 = Sehr gut
                     6-8  = Gut
                     3-5  = mittel
                     0-2  = gering oder unbekannt -->
-                <option value="" disabled selected>Bienenweide</option>
+                <option value="" disabled="disabled" selected="selected">Bienenweide</option>
+                <option class="option" value="all">Alle</option>
                 <option class="option" value="9-10">sehr gut</option>
                 <option class="option" value="6-8">gut</option>
                 <option class="option" value="3-5">mittel</option>
@@ -90,12 +94,16 @@
 
 
     <!-- ### Start der Profil Ausgabe bzw. such ausgabe ### -->
-    <div class="parent">
+    <div class="parent tree-search-result">
         <div class="row1">
             {% for tree in trees %}
-                <a class="item" href="{{ path('detail', {'id': tree.id}) }}">
+                <a class="item tree-search-result-item" href="{{ path('detail', {'id': tree.id}) }}">
                     {{ tree.name }}
                     <img class="itemPix" src="{% if tree.pictures|length > 0 %}{{ asset(treePicsDir ~ tree.pictures[0].path) }}{% endif %}" alt="">
+
+                    {% for searchInfo in tree.searchableInformations %}
+                        <input type="hidden" name="{{ searchInfo.name }}" value="{{ searchInfo.value }}">
+                    {% endfor %}
                 </a>
             {% endfor %}
         </div>
