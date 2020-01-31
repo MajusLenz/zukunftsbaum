@@ -17,14 +17,7 @@ class LandingController extends AbstractController{
     */
     public function landingAction() {
 
-        $testString = "Ich bin ein Test-String!";
-
-        $testArray = ["eintrag1", "eintrag2", 12345, null, "Badewanne", false, true, 0, ""];
-
-        return $this->render('content/landing/landing.html.twig', [
-            "testString" => $testString,
-            "testArray" => $testArray,
-        ]);
+        return $this->render('content/landing/landing.html.twig', []);
     }
 
 

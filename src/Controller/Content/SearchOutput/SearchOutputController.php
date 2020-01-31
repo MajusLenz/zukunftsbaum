@@ -13,12 +13,17 @@ use App\Entity\TreeInformation;
 class SearchOutputController extends AbstractController{
 
     /**
-     * @Route("/searchOutput", name="search_output")
+     * @Route("/suchergebnis", name="search_output")
      */
-    public function searchOutputAction() {
+    public function searchOutputAction(string $treePicsDir) {
+
+        $doctrine = $this->getDoctrine();
+
+        $trees = $doctrine->getRepository(Tree::class)->findAll();
 
         return $this->render('content/searchOutput/searchOutput.html.twig', [
-
+            "trees" => $trees,
+            "treePicsDir" => $treePicsDir . "/"
         ]);
     }
 

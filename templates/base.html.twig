@@ -1,5 +1,7 @@
 {# Global Twig-Variables: #}
-{% set allInformationNames = ["Farbe", "Höhe", "Wasserverbrauch"] %}
+{% set optionalInformationNames = ["Farbe", "Wasserverbrauch"] %}
+{% set requiredInformationNames = ["Höhe", "Breite", "Lichtbedarf", "Bienenweide"] %}
+{% set allInformationNames = requiredInformationNames|merge(optionalInformationNames) %}
 
 
 {# Document Start: #}

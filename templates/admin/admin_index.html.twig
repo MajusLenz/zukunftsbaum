@@ -2,7 +2,7 @@
 
 {% block title %}
     {{ parent() }}
-    Admin
+    Administrator-Bereich
 {% endblock %}
 
 
@@ -39,9 +39,9 @@
                 <label>
                     Informations-Art:
                     <select class="admin-new-tree-information-name" required="required" name="information-name-">
-                        <option value="Farbe">Farbe</option>
-                        <option value="Höhe">Höhe</option>
-                        <option value="Wasserverbrauch">Wasserverbrauch</option>
+                        {% for infoName in allInformationNames %}
+                            <option value="{{ infoName }}">{{ infoName }}</option>
+                        {% endfor %}
                     </select>
                 </label>
                 <label>
