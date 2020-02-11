@@ -1,5 +1,6 @@
 body {
 	background: #F5F5F5;
+	margin-top: 9em;
 } 
 
 .Filter{
@@ -50,8 +51,8 @@ body {
 }
 
 .Filter1 {
-	background: rgba(72,178,103);
-	font-size: ;
+	background: rgba(72,178,103, 1);
+	font-size: inherit;
 	color: #F5F5F5;
 	margin: 1em;
 	margin-top: 1em;
@@ -81,7 +82,6 @@ body {
 	text-decoration: none;
 	text-align: center;
     color: whitesmoke;
-    font-weight: auto;
     font-size: 1.0em;
 
 	/* Button aussehen */
