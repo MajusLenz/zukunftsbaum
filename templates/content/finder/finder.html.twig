@@ -1,0 +1,124 @@
+{% extends "content/content_base.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/finder.styles.css') }}">
+{% endblock %}
+
+{% block title %}
+    {{ parent() }}
+    Baumfinder
+{% endblock %}
+
+{% block mainClass %}finder{% endblock %}
+
+{% block main %}
+			<div class="Filter">
+				<div class="FilterErklaerung">
+					<h2 class="h2Filter"> Finden Sie den Perfekten Baum für sich </h2>
+					<p>
+						Nutzen Sie den Baum-Finder um den für Sie Passenden Baum zu finden.
+						Um ihnen passenden Bäume vorschlagen zu können beantworten Sie kurz die nachfolgenden vier Fragen. Falls Sie nicht alle Fragen beantowrten können gibt es bei jeder Frage eine Hilfestellung von uns.
+					</p>
+				</div>
+				
+				<div class="FilterEbene1">
+					
+					<div id="Frage1" class="Filter1"> 
+						<p>
+							Bäume brauchen unterschiedlich viel Platz. 
+							Deswegen ist es für uns wichtig zu wissen wie Hoch und wie Breit der Baum ungefähr werden darf, den Sie Pflanzen wollen. 
+						</p>
+						<p>
+							<label for="height">Höhe des Baums</label>
+            				<select id="height" class="Höhe-input quest search-output-form-input range-input" required="required" name="Wuchshöhe">
+								<!--Wuchs Höhe des Baums -->
+								<!--Werte:
+									0 bis 5 m
+									5 bis 10 m
+									10 bis 20 m
+									20 bis 30 m
+									30 bis 45 m
+									über 45 m-->
+								<option value="" disabled="disabled" selected="selected">wählen</option>
+								<option class="option" value="all">Alle</option>
+								<option class="option" value="0-5">0 bis 5 m</option>
+								<option class="option" value="5-10">5 bis 10 m</option>
+								<option class="option" value="10-20">10 bis 20 m</option>
+								<option class="option" value="20-30">20 bis 30 m</option>
+								<option class="option" value="30-45">30 bis 45 m</option>
+								<option class="option" value="45+">über 45 m</option>
+							</select>
+						</p>
+						<p>
+							<label for="width">Breite des Baums</label>
+            				<select id="width" class="Breite-input quest search-output-form-input range-input" required="required" name="Wuchsbreite">
+								<!-- Wuchs Breite der Baumkrone -->
+								<!--Werte:
+									0 bis 5 m
+									6 bis 10 m
+									10 bis 20 m
+									20 bis 30 m
+									über 30 m-->
+								<option value="" disabled="disabled" selected="selected">wählen</option>
+								<option class="option" value="all">Alle</option>
+								<option class="option" value="0-5">0 bis 5 m</option>
+								<option class="option" value="5-10">5 bis 10 m</option>
+								<option class="option" value="10-20">10 bis 20 m</option>
+								<option class="option" value="20-30">20 bis 30 m</option>
+								<option class="option" value="30+">über 30 m</option>
+							</select>
+						</p>
+						<button class="button2"><a href="#Frage2">Weiter</a></button>
+					</div>
+					
+					<div id="Frage2" class="Filter1"> 
+						<p>
+							Es ist wichtig das der Baum genug Sonne bekommt aber auch nicht zu viel Sonne. 
+							Deswegen ist es für uns wichtig zu wissen wie viel Sonne, an der Stelle die Sie bepflanzen wollen, zu verfügung ist. 
+						</p>
+						<p>
+							<label for="light">Sonnenstrahlung</label>
+							<select id="light" class="Lichtbedarf-input quest search-output-form-input value-input" required="required" name="Lichtbedarf">
+								<!-- Lichtbedarf -->
+								<!--Werte:
+									Sonne = 4
+									Lichter Schatten = 3
+									Halbschatten = 2
+									Schatten = 1 -->
+								<option value="" disabled="disabled" selected="selected">wählen</option>
+								<option class="option" value="all">Alle</option>
+								<option class="option" value="4">Sonne</option>
+								<option class="option" value="3">Lichter Schatten</option>
+								<option class="option" value="2">Halbschatten</option>
+								<option class="option" value="1">Schatten</option>
+							</select>					
+						</p>
+						<button class="button2">Weiter</button> 	
+					</div>
+					
+					<div id="Frage3" class="Filter1"> 
+						<p>
+							Als Bienenweide oder Tracht werden Blütenpflanzen bezeichnet, die Bienen für ihre Ernährung aufsuchen. Durch die Agrarwirtschaft gibt es immer weniger Bienenfreundliche Pflanz so ist es sinnvoll Bäume zu pflanzen die einen hohe Bienenfreundlichkeit habe.
+						</p>
+						<p>
+							<label for="bees">Bienenfreundlichkeit</label>
+							<select id="bees" class="Bienenweide-input quest search-output-form-input range-input" required="required" name="Bienenweide">
+								<!-- Bienenfreundlichkeit -->
+								<!--Werte:
+									9-10 = Sehr gut
+									6-8  = Gut
+									3-5  = mittel
+									0-2  = gering oder unbekannt -->
+								<option value="" disabled="disabled" selected="selected">wählen</option>
+								<option class="option" value="all">Alle</option>
+								<option class="option" value="9-10">sehr gut</option>
+								<option class="option" value="6-8">gut</option>
+								<option class="option" value="3-5">mittel</option>
+								<option class="option" value="0-2">gering / keine Angabe</option>
+							</select>		
+						</p>						
+						<button class="button2" type="submit" formtarget="_blank">Meine perfekter Baum</button>					
+					</div>
+				</div>
+			</div>
+{% endblock %}

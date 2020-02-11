@@ -1,0 +1,34 @@
+{% extends "content/content_base.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/donation.styles.css') }}">
+{% endblock %}
+
+{% block title %}
+    {{ parent() }}
+    Spenden
+{% endblock %}
+
+{% block mainClass %}donation{% endblock %}
+
+{% block main %}
+			<div id="Spenden">
+				<div class="Spenden1">
+					<h2>Spenden</h2>
+					<p class="block1">
+						Wünschen Sie sich ein grüneres Düsseldorf, an dem Sie sich täglich erfreuen können? Neben Privatgrundtücken kann auch das öffentliche Stadtgebiet grüner werden. Ihre Spende – egal in welcher Höhe – trägt zur Pflanzung und Pflege der Stadtbäume bei. 
+					</p>		
+					<div class="block2">
+						<p>Bankverbindung Gartenamt wird noch angefragt</p>
+						<p>Empfänger: </p>
+						<p>IBAN: </p>
+						<p>BIC: </p>
+						<p>Verwendungszweck: </p>
+					</div>
+					<p class="block1">
+						Das Gartenamt Düsseldorf nimmt gerne Spenden für ganz bestimmte Baumstandorte entgegen; egal ob In Ihrer Straße, an Ihrem Arbeitsplatz, am Kinderspielplatz in Ihrer Nachbarschaft oder im Lieblingspark Ihres Hundes. Wenn Sie einen ganzen Baum spenden, bringt das Gartenamt Düsseldorf Ihren Namen als Baumpat/in auf der Baumplakette sichtbar an. Wenden Sie sich für einzelne Standorte bitte an XY
+					</p>				
+				</div>				
+            </div>
+		
+{% endblock %}

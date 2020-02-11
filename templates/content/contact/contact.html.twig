@@ -1,0 +1,40 @@
+{% extends "content/content_base.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/footerPages.styles.css') }}">
+{% endblock %}
+
+{% block title %}
+    {{ parent() }}
+    Kontak
+{% endblock %}
+
+{% block mainClass %}contact{% endblock %}
+
+{% block main %}
+
+		<main>
+			<div id="FooterPage"> 
+				<div class="FooterPageBox">
+					<div class="NewsBlock">
+						<h3>Kontakt</h3>
+						<p>
+							Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis.  
+						</p>
+						<p>Anschrift:</p>
+						<ul>
+							<li>NAME</li>
+							<li>STRASSE NR.</li>
+							<li>PLZ ORT</li>
+							<li>LAND</li>
+						</ul>
+						<p> oder unter der E-Mail Adresse -
+						beispiel@beispiel.de</p>
+						
+					</div>
+				</div>
+			</div>
+		
+		</main>
+
+{% endblock %} 
