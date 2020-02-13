@@ -19,16 +19,17 @@
                     <div class="collapse navbar-collapse" id="collapsibleNavbar">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Baum-Finder</a>
+                                <a class="nav-link" href="{{ path("finder") }}">Baum-Finder</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Baumliste</a>
+                                <a class="nav-link" href="{{ path("treeProfil") }}">Baumliste</a> <!--searchOutput-->
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path("pAndNews") }}">Projekte &amp; Aktuelles</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Projekte &amp; Aktuelles</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Spenden</a>
+                                <a class="nav-link" href="{{ path("donation") }}">Spenden</a>
                             </li>
                             <!--
                             <li class="nav-item">
@@ -49,12 +50,12 @@
         <!-- Footer  -->
         <div class="row footer">
             <div class="col-sm-6 footer-col">
-                <a href="" class="footer-title">Community</a>
-                <a href="" class="footer-title">Kontakt</a>
+                <a href="{{ path("contact") }}" class="footer-title">Community</a>
+                <a href="{{ path("contact") }}" class="footer-title">Kontakt</a>
             </div>
             <div class="col-sm-6 footer-col">
-                <a href="" class="footer-title">Impressum</a>
-                <a href="" class="footer-title">Datenschutz</a>
+                <a href="{{ path("impressum") }}" class="footer-title">Impressum</a>
+                <a href="{{ path("dataProtection") }}" class="footer-title">Datenschutz</a>
             </div>
             <div class="row">
                 <div class="col-sm-12">
