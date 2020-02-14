@@ -55,7 +55,7 @@ body {
 	
 	height: auto;
 	min-height: 100px;
-	max-height: 5000px;
+
 	
 	text-align: left;
 	
@@ -65,6 +65,12 @@ body {
 
 h3, h2, p{
 	margin: 0.8em;
+}
+
+h4 {
+	margin: 0.8em;
+	font-size: large;
+	font-weight: bold;
 }
 
 br {
