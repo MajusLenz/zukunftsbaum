@@ -97,6 +97,11 @@ body {
 	margin-bottom: 1em;
 }
 
+.button2:hover {
+	color: rgba(72,178,103, 1);
+	border: 1.5px solid #0f591c;
+}
+
 
 h3, h2, p{
 	margin: 0.8em;
