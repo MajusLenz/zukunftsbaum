@@ -111,7 +111,7 @@ body {
     font-size: 18px;
     line-height: 20px;
     background-color: #48b267;
-    border:2px solid rgb(0, 105, 0);
+    border:1.5px solid rgb(0, 105, 0);
     /*border-color: #0f591c;
     border-radius: 50px;
     moz-transition: all .4s ease-in-out;
@@ -122,7 +122,8 @@ body {
 }
 
 .button:hover {
-    color:rgb(0, 105, 0);
+    color:#48b267;
+    background-color: rgb(0, 105, 0);
     text-decoration: none;
     /*background: rgb(15,89,28);
     background: -moz-linear-gradient(90deg, rgba(15,89,28,1) 0%, rgba(72,178,103,1) 100%);
