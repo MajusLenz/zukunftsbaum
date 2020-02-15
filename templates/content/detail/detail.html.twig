@@ -13,6 +13,7 @@
 
 
 {% block main %}
+
     <div id="BaumProfil">
         <div class="BaumProfilHead">
             <div class="ProfilBild">
@@ -62,14 +63,87 @@
     <br/><br/><br/>
     <br/><br/><br/>
 
-    DETAIL
+
+    BAUMNAME:
     {{ tree.name }}
     <br/>
+
+    ID:
     {{ tree.id }}
     <br/>
     <br/>
 
-    Infos:
+
+
+    Beispiele für gezielte Ausgabe von Information:
+    <br/>
+    {% for info in tree.informations %}
+        {% if info.name == "Wuchshöhe" %}
+            {{ info.name }}: {{ info.value }} Meter
+        {% endif %}
+    {% endfor %}
+    <br/>
+
+    {% for info in tree.informations %}
+        {% if info.name == "Baumname Wissenschaftlich" %}
+            {{ info.name }}: {{ info.value }}
+        {% endif %}
+    {% endfor %}
+    <br/>
+    <br/>
+
+
+    Beispiel für Ausgabe von HTML-Code abhängig von einer Variablen:
+    <br/>
+    {% for index, info in tree.informations %}
+        {% if info.name == "Kategorie" %}
+
+            {% if info.value == "1" %}
+                <p>
+                    Kategorie 1 Text Bla Bla Bla
+                </p>
+            {% endif %}
+            {% if info.value == "2" %}
+                <p>
+                    Kategorie 2 Text Bla Bla Bla
+                </p>
+            {% endif %}
+            {% if info.value == "3" %}
+                <p>
+                    Kategorie 3 Text Bla Bla Bla
+                </p>
+            {% endif %}
+            {% if info.value == "4" %}
+                <p>
+                    Kategorie 4 Text Bla Bla Bla
+                </p>
+            {% endif %}
+
+        {% endif %}
+    {% endfor %}
+    <br/>
+
+    Beispiel für gezielte Ausgabe von Information, für die es aber mehrere Werte gibt:
+    <br/>
+    Lichtbedarf:
+    <br/>
+    {% for index, info in tree.informations %}
+        {% if info.name == "Lichtbedarf" %}
+            {% if index > 0 %},{% endif %}
+
+            {% if info.value == 4 %}Sonne{% endif %}
+            {% if info.value == 3 %}Lichter Schatten{% endif %}
+            {% if info.value == 2 %}Halbschatten{% endif %}
+            {% if info.value == 1 %}Schatten{% endif %}
+        {% endif %}
+    {% endfor %}
+    <br/>
+    <br/>
+
+
+
+    <br/><br/><br/><br/>
+    Ausgabe von einfach allen Tree-Infos:
     <br/>
     {% for info in tree.informations %}
         {{ info.name }}: {{ info.value }}
@@ -77,11 +151,27 @@
     {% endfor %}
     <br/>
 
-    Pictures:
+
+
+
+
+    <br/><br/>
+    Erstes Bild:
     <br/>
-    {% for pic in tree.pictures %}
-        <img src="{{ asset(treePicsDir ~ pic.path) }}" alt="" width="200px"/>
-        <br/>
+    {% for index, pic in tree.pictures %}
+        {% if index == 0 %}
+            <img src="{{ asset(treePicsDir ~ pic.path) }}" alt="" width="200px"/>
+            <br/>
+        {% endif %}
+    {% endfor %}
+
+    Restliche Bilder:
+    <br/>
+    {% for index, pic in tree.pictures %}
+        {% if index > 0 %}
+            <img src="{{ asset(treePicsDir ~ pic.path) }}" alt="" width="200px"/>
+            <br/>
+        {% endif %}
     {% endfor %}
 
 {% endblock %}
