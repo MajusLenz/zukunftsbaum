@@ -12,6 +12,8 @@
 {% block mainClass %}finder{% endblock %}
 
 {% block main %}
+	<form action="{{ path("search_output") }}" method="GET" target="_self">
+
 			<div class="Filter">
 				<div class="FilterErklaerung">
 					<h2 class="h2Filter"> Finden Sie den Perfekten Baum für sich </h2>
@@ -121,4 +123,6 @@
 					</div>
 				</div>
 			</div>
+
+	</form>
 {% endblock %}
