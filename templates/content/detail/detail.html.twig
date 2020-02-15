@@ -1,7 +1,7 @@
 {% extends "content/content_base.html.twig" %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/detail.styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/treeProfil.styles.css') }}">
 {% endblock %}
 
 {% block title %}
@@ -13,6 +13,51 @@
 
 
 {% block main %}
+    <div id="BaumProfil">
+        <div class="BaumProfilHead">
+            <div class="ProfilBild">
+                <img class="imgProfil" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="Noch kein Bild da">
+            </div>
+            <div class="BaumName">
+                <h3>Baumname</h3>
+                <h3>Baumname Wissenschaftlich</h3>
+            </div>
+
+        </div>
+        <div class="BaumProfilBody">
+            <div class="Grunddaten">
+                <h3>Steckbrief</h3>
+                <ul>
+                    <li>Herkunft:</li>
+                    <li>Breite:</li>
+                    <li>Höhe:</li>
+                    <li>Lichtbedarf:</li>
+                    <li>Lichtdurchlässigkeit:</li>
+                    <li>Bienenfreundlichkeit:</li>
+                </ul>
+            </div>
+
+            <div class="Eigenschaften">
+                <h3>Kategorie: 4</h3> <!-- 4 wird generiert, genaus so wie text im <p> -->
+                <p>
+                    Problembäume die aufgrund von Bakterien- oder Pilzbefall,
+                    Bruchgefahr und weiteren negativen Eigenschaften nicht mehr
+                    als Straßenbäume gepflanzt werden. Ersatzpflanzung bestehender
+                    Alleen erfolgen nur noch in begründeten Ausnahmefällen.
+                </p>
+            </div>
+            <div class="Besonderheiten">
+                <h3>Besonderheiten:</h3>
+                <p>
+                    zylindrische Form, kegelförmiger Wuchs,
+                    in der Jugend lieber schattig, luftfeuchte Lagen,
+                    sehr empfindlich gegenüber jeder Art
+                    von Boden- oder Luftverschmutzung
+                </p>
+            </div>
+        </div>
+    </div>
+
 
     <br/><br/><br/>
     <br/><br/><br/>
