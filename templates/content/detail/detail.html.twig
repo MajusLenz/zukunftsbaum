@@ -131,49 +131,47 @@
                         {% endif %}
                     {% endfor %}
                 </h3>
-                <p>
-                    {% for index, info in tree.informations %}
+                {% for index, info in tree.informations %}
                     {% if info.name == "Kategorie" %}
 
-                    {% if info.value == "1" %}
-                <p>
-                    Diese Baumarten sind aufgrund ihrer Eigenschaften als Zukunftsbäume geeignet. Viele sind bereits in Düsseldorf getestet und sollen weiter verwendet werden.
-                </p>
-                {% endif %}
-                {% if info.value == "2" %}
-                    <p>
-                        Diese Baumarten sind aufgrund ihrer Eigenschaften als Zukunftsbäume geeignet. Sie sollen als Zukunftsbäume in Düsseldorf verwendet werden.
-                    </p>
-                {% endif %}
-                {% if info.value == "3" %}
-                    <p>
-                        Diese Arten sind weiter auf ihre Eignung als Zukunftsbaum zu testen. Sie können experimentel auch in Düsseldorf verwendet werden.
-                    </p>
-                {% endif %}
-                {% if info.value == "4" %}
-                    <p>
-                        Problembäume die aufgrund von Bakterien- oder Pilzbefall, Bruchgefahr und weiteren negativen Eigenschaften nicht mehr als Straßenbäume gepflanzt werden. Ersatzpflanzung bestehender Alleen erfolgen nur noch in begründeten Ausnahmefällen.
-                    </p>
-                {% endif %}
-                {% if info.value == "1a" %}
-                    <p>
-                        Linden machen bereits 1/4 der Straßenbäume in Düsseldorf aus. Ihr Anteil soll nicht weiter erhöht werden. Daher müssen für jede neu gepflanzte Linde  4-5 Bäume anderer Gattungen gepflanzt werden
-                    </p>
-                {% endif %}
-                {% if info.value == "2a" %}
-                    <p>
-                        Linden machen bereits 1/4 der Straßenbäume in Düsseldorf aus. Ihr Anteil soll nicht weiter erhöht werden. Daher müssen für jede neu gepflanzte Linde  4-5 Bäume
-                    </p>
-                {% endif %}
-                {% if info.value == "A" %}
-                    <p>
-                        Anlagenbäume
-                    </p>
-                {% endif %}
+                        {% if info.value == "1" %}
+                            <p>
+                                Diese Baumarten sind aufgrund ihrer Eigenschaften als Zukunftsbäume geeignet. Viele sind bereits in Düsseldorf getestet und sollen weiter verwendet werden.
+                            </p>
+                        {% endif %}
+                        {% if info.value == "2" %}
+                            <p>
+                                Diese Baumarten sind aufgrund ihrer Eigenschaften als Zukunftsbäume geeignet. Sie sollen als Zukunftsbäume in Düsseldorf verwendet werden.
+                            </p>
+                        {% endif %}
+                        {% if info.value == "3" %}
+                            <p>
+                                Diese Arten sind weiter auf ihre Eignung als Zukunftsbaum zu testen. Sie können experimentel auch in Düsseldorf verwendet werden.
+                            </p>
+                        {% endif %}
+                        {% if info.value == "4" %}
+                            <p>
+                                Problembäume die aufgrund von Bakterien- oder Pilzbefall, Bruchgefahr und weiteren negativen Eigenschaften nicht mehr als Straßenbäume gepflanzt werden. Ersatzpflanzung bestehender Alleen erfolgen nur noch in begründeten Ausnahmefällen.
+                            </p>
+                        {% endif %}
+                        {% if info.value == "1a" %}
+                            <p>
+                                Linden machen bereits 1/4 der Straßenbäume in Düsseldorf aus. Ihr Anteil soll nicht weiter erhöht werden. Daher müssen für jede neu gepflanzte Linde  4-5 Bäume anderer Gattungen gepflanzt werden
+                            </p>
+                        {% endif %}
+                        {% if info.value == "2a" %}
+                            <p>
+                                Linden machen bereits 1/4 der Straßenbäume in Düsseldorf aus. Ihr Anteil soll nicht weiter erhöht werden. Daher müssen für jede neu gepflanzte Linde  4-5 Bäume
+                            </p>
+                        {% endif %}
+                        {% if info.value == "A" %}
+                            <p>
+                                Anlagenbäume
+                            </p>
+                        {% endif %}
 
-                {% endif %}
+                    {% endif %}
                 {% endfor %}
-                </p>
             </div>
             <div class="Besonderheiten">
                 <h3>Besonderheiten:</h3>
