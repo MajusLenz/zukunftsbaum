@@ -17,7 +17,7 @@
     <div id="BaumProfil">
         <div class="BaumProfilHead">
             <div class="ProfilBild">
-                <img class="imgProfil" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild">
+                <img class="imgProfil" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="">
                 {# ES WIRD KEIN BILD AUSGEGEBEN UND AUCH KEIN alt TEXT #}
                 {% for index, pic in tree.pictures %}
                     {% if index == 0 %}
@@ -159,7 +159,6 @@
 
                 {% endif %}
                 {% endfor %}
-                </p>
             </div>
             <div class="Besonderheiten">
                 <h3>Besonderheiten:</h3>
