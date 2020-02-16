@@ -17,8 +17,14 @@
     <div id="BaumProfil">
         <div class="BaumProfilHead">
             <div class="ProfilBild">
-                <img class="imgProfil" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild">
+                <img class="imgProfil" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="">
                 {# ES WIRD KEIN BILD AUSGEGEBEN UND AUCH KEIN alt TEXT #}
+
+
+                {# Doch. Du lädst die bilder nicht richtig hoch.
+                Versuch für erste die Bilder einfach im admin bereich über baum bearbeiten hinzuzufügen #}
+
+
                 {% for index, pic in tree.pictures %}
                     {% if index == 0 %}
                         <img class="imgProfil" src="{{ asset(treePicsDir ~ pic.path) }}" alt="BILD" width="200px"/>
@@ -176,16 +182,17 @@
 
 
 
-{# FUNKTIONIERT SO NOCH NICHT
- auch der Testweise eingefügte alt="TEXT" wird nicht ausgegeben.
- Unveränderte version:
- #}
+{# FUNKTIONIERT SO NOCH NICHT #}
+
+    {# Doch. Siehe Nachricht weiter oben... #}
+
+
     <br/><br/>
     Erstes Bild:
     <br/>
     {% for index, pic in tree.pictures %}
         {% if index == 0 %}
-            <img src="{{ asset(treePicsDir ~ pic.path) }}" alt="TEXT" width="200px"/>
+            <img src="{{ asset(treePicsDir ~ pic.path) }}" alt="" width="200px"/>
             <br/>
         {% endif %}
     {% endfor %}

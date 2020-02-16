@@ -5,6 +5,7 @@
     var $searchInputs = $form.find(".search-output-form-input");
     var $allTrees = $(".tree-search-result-item");
     var $allTreesParent = $allTrees.parent();
+    var $noTreesFoundMessage = $(".no-trees-found-message");
 
     var updateSearchResult = function () {
         $allTrees.detach();
@@ -72,6 +73,13 @@
         });
 
         $allTreesParent.prepend($searchResultTrees);
+
+        if($searchResultTrees.length === 0) {
+            $noTreesFoundMessage.fadeIn(0);
+        }
+        else{
+            $noTreesFoundMessage.fadeOut(0);
+        }
     };
 
 

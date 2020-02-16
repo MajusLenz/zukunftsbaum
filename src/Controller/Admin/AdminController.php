@@ -336,7 +336,7 @@ class AdminController extends AbstractController {
             $isInformation = strpos($key, "information") !== false;
 
             if ($isInformation) {
-                if (empty($key) || empty($param)) {
+                if ( (empty($key) && $key !== "0") || (empty($param) && $param !== "0") ) {
                     throw new HttpException(400, "Tree-Information Names and Values must not be empty!");
                 }
 
