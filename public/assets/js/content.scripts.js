@@ -1,5 +1,6 @@
 (function($) { $(document).ready(function() {
-    $(window).scroll(function(){
+
+    var updateHeaderAnimation = function () {
         var scroll = $(window).scrollTop();
         if (scroll > 10) {
             $(".navbar").addClass("navbar-scrolled");
@@ -11,7 +12,12 @@
             // $(".nav-link").css("color" , "#ffffff");
 
         }
+    };
+
+    $(window).scroll(function(){
+        updateHeaderAnimation();
     });
 
+    updateHeaderAnimation();
 
 }) }(window.jQuery));
