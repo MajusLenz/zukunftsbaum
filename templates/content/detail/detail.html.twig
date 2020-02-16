@@ -17,11 +17,23 @@
     <div id="BaumProfil">
         <div class="BaumProfilHead">
             <div class="ProfilBild">
-                <img class="imgProfil" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="Noch kein Bild da">
+                <img class="imgProfil" src="{{ asset('assets/images/content/testBild.jpg') }}" alt="kein Bild">
+                {# ES WIRD KEIN BILD AUSGEGEBEN UND AUCH KEIN alt TEXT #}
+                {% for index, pic in tree.pictures %}
+                    {% if index == 0 %}
+                        <img class="imgProfil" src="{{ asset(treePicsDir ~ pic.path) }}" alt="BILD" width="200px"/>
+                    {% endif %}
+                {% endfor %}
             </div>
             <div class="BaumName">
-                <h3>Baumname</h3>
-                <h3>Baumname Wissenschaftlich</h3>
+                <h3>{{ tree.name }}</h3>
+                <h3>
+                    {% for info in tree.informations %}
+                        {% if info.name == "Baumname Wissenschaftlich" %}
+                            {{ info.value }}
+                        {% endif %}
+                    {% endfor %}
+                </h3>
             </div>
 
         </div>
@@ -29,132 +41,142 @@
             <div class="Grunddaten">
                 <h3>Steckbrief</h3>
                 <ul>
-                    <li>Herkunft:</li>
-                    <li>Breite:</li>
-                    <li>Höhe:</li>
-                    <li>Lichtbedarf:</li>
-                    <li>Lichtdurchlässigkeit:</li>
-                    <li>Bienenfreundlichkeit:</li>
+                    <li>Herkunft:
+                        {% for info in tree.informations %}
+                            {% if info.name == "Herkunft" %}
+                                {{ info.value }}
+                            {% endif %}
+                        {% endfor %}
+                    </li>
+                    <li>Breite:
+                        {% for info in tree.informations %}
+                            {% if info.name == "Wuchsbreite" %}
+                                {{ info.value }} Meter
+                            {% endif %}
+                        {% endfor %}
+                    </li>
+                    <li>Höhe:
+                        {% for info in tree.informations %}
+                            {% if info.name == "Wuchshöhe" %}
+                                {{ info.value }} Meter
+                            {% endif %}
+                        {% endfor %}
+                    </li>
+                    <li>Lichtbedarf:
+                        {% for index, info in tree.informations %}
+                            {% if info.name == "Lichtbedarf" %}
+                                {% if index > 0 %},{% endif %}
+
+                                {% if info.value == 4 %}Sonne{% endif %}
+                                {% if info.value == 3 %}Lichter Schatten{% endif %}
+                                {% if info.value == 2 %}Halbschatten{% endif %}
+                                {% if info.value == 1 %}Schatten{% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </li>
+                    <li>Lichtdurchlässigkeit:
+                        {% for info in tree.informations %}
+                            {% if info.name == "Lichtdurchlässigkeit" %}
+                                {{ info.value }}
+                            {% endif %}
+                        {% endfor %}
+                    </li>
+                    <li>Bienenfreundlichkeit:
+                        <!--Werte:
+                    9-10 = Sehr gut
+                    6-8  = Gut
+                    3-5  = mittel
+                    0-2  = gering oder unbekannt -->
+                        {% for index, info in tree.informations %}
+                            {% if info.name == "Bienenweide" %}
+                                {% if index > 0 %}
+                                {% endif %}
+
+                                {% if info.value == 10 %}Sehr gut{% endif %}
+                                {% if info.value == 9 %}Sehr gut{% endif %}
+                                {% if info.value == 8 %}Gut{% endif %}
+                                {% if info.value == 7 %}Gut{% endif %}
+                                {% if info.value == 6 %}Gut{% endif %}
+                                {% if info.value == 5 %}Mittel{% endif %}
+                                {% if info.value == 4 %}Mittel{% endif %}
+                                {% if info.value == 3 %}Mittel{% endif %}
+                                {% if info.value == 2 %}Gering/unbekannt{% endif %}
+                                {% if info.value == 1 %}Gering/unbekannt{% endif %}
+                                {% if info.value == 0 %}Gering/unbekannt{% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </li>
                 </ul>
             </div>
 
             <div class="Eigenschaften">
-                <h3>Kategorie: 4</h3> <!-- 4 wird generiert, genaus so wie text im <p> -->
+                <h3>Kategorie:
+                    {% for info in tree.informations %}
+                        {% if info.name == "Kategorie" %}
+                            {{ info.value }}
+                        {% endif %}
+                    {% endfor %}
+                </h3>
                 <p>
-                    Problembäume die aufgrund von Bakterien- oder Pilzbefall,
-                    Bruchgefahr und weiteren negativen Eigenschaften nicht mehr
-                    als Straßenbäume gepflanzt werden. Ersatzpflanzung bestehender
-                    Alleen erfolgen nur noch in begründeten Ausnahmefällen.
+                    {% for index, info in tree.informations %}
+                    {% if info.name == "Kategorie" %}
+
+                    {% if info.value == "1" %}
+                <p>
+                    Diese Baumarten sind aufgrund ihrer Eigenschaften als Zukunftsbäume geeignet. Viele sind bereits in Düsseldorf getestet und sollen weiter verwendet werden.
+                </p>
+                {% endif %}
+                {% if info.value == "2" %}
+                    <p>
+                        Diese Baumarten sind aufgrund ihrer Eigenschaften als Zukunftsbäume geeignet. Sie sollen als Zukunftsbäume in Düsseldorf verwendet werden.
+                    </p>
+                {% endif %}
+                {% if info.value == "3" %}
+                    <p>
+                        Diese Arten sind weiter auf ihre Eignung als Zukunftsbaum zu testen. Sie können experimentel auch in Düsseldorf verwendet werden.
+                    </p>
+                {% endif %}
+                {% if info.value == "4" %}
+                    <p>
+                        Problembäume die aufgrund von Bakterien- oder Pilzbefall, Bruchgefahr und weiteren negativen Eigenschaften nicht mehr als Straßenbäume gepflanzt werden. Ersatzpflanzung bestehender Alleen erfolgen nur noch in begründeten Ausnahmefällen.
+                    </p>
+                {% endif %}
+                {% if info.value == "1a" %}
+                    <p>
+                        Linden machen bereits 1/4 der Straßenbäume in Düsseldorf aus. Ihr Anteil soll nicht weiter erhöht werden. Daher müssen für jede neu gepflanzte Linde  4-5 Bäume anderer Gattungen gepflanzt werden
+                    </p>
+                {% endif %}
+                {% if info.value == "2a" %}
+                    <p>
+                        Linden machen bereits 1/4 der Straßenbäume in Düsseldorf aus. Ihr Anteil soll nicht weiter erhöht werden. Daher müssen für jede neu gepflanzte Linde  4-5 Bäume
+                    </p>
+                {% endif %}
+                {% if info.value == "A" %}
+                    <p>
+                        Anlagenbäume
+                    </p>
+                {% endif %}
+
+                {% endif %}
+                {% endfor %}
                 </p>
             </div>
             <div class="Besonderheiten">
                 <h3>Besonderheiten:</h3>
                 <p>
-                    zylindrische Form, kegelförmiger Wuchs,
-                    in der Jugend lieber schattig, luftfeuchte Lagen,
-                    sehr empfindlich gegenüber jeder Art
-                    von Boden- oder Luftverschmutzung
+                    {% for info in tree.informations %}
+                        {% if info.name == "Bemerkung" %}
+                            {{ info.value }}
+                        {% endif %}
+                    {% endfor %}
                 </p>
             </div>
         </div>
     </div>
 
 
-    <br/><br/><br/>
-    <br/><br/><br/>
 
-
-    BAUMNAME:
-    {{ tree.name }}
-    <br/>
-
-    ID:
-    {{ tree.id }}
-    <br/>
-    <br/>
-
-
-
-    Beispiele für gezielte Ausgabe von Information:
-    <br/>
-    {% for info in tree.informations %}
-        {% if info.name == "Wuchshöhe" %}
-            {{ info.name }}: {{ info.value }} Meter
-        {% endif %}
-    {% endfor %}
-    <br/>
-
-    {% for info in tree.informations %}
-        {% if info.name == "Baumname Wissenschaftlich" %}
-            {{ info.name }}: {{ info.value }}
-        {% endif %}
-    {% endfor %}
-    <br/>
-    <br/>
-
-
-    Beispiel für Ausgabe von HTML-Code abhängig von einer Variablen:
-    <br/>
-    {% for index, info in tree.informations %}
-        {% if info.name == "Kategorie" %}
-
-            {% if info.value == "1" %}
-                <p>
-                    Kategorie 1 Text Bla Bla Bla
-                </p>
-            {% endif %}
-            {% if info.value == "2" %}
-                <p>
-                    Kategorie 2 Text Bla Bla Bla
-                </p>
-            {% endif %}
-            {% if info.value == "3" %}
-                <p>
-                    Kategorie 3 Text Bla Bla Bla
-                </p>
-            {% endif %}
-            {% if info.value == "4" %}
-                <p>
-                    Kategorie 4 Text Bla Bla Bla
-                </p>
-            {% endif %}
-
-        {% endif %}
-    {% endfor %}
-    <br/>
-
-    Beispiel für gezielte Ausgabe von Information, für die es aber mehrere Werte gibt:
-    <br/>
-    Lichtbedarf:
-    <br/>
-    {% for index, info in tree.informations %}
-        {% if info.name == "Lichtbedarf" %}
-            {% if index > 0 %},{% endif %}
-
-            {% if info.value == 4 %}Sonne{% endif %}
-            {% if info.value == 3 %}Lichter Schatten{% endif %}
-            {% if info.value == 2 %}Halbschatten{% endif %}
-            {% if info.value == 1 %}Schatten{% endif %}
-        {% endif %}
-    {% endfor %}
-    <br/>
-    <br/>
-
-
-
-    <br/><br/><br/><br/>
-    Ausgabe von einfach allen Tree-Infos:
-    <br/>
-    {% for info in tree.informations %}
-        {{ info.name }}: {{ info.value }}
-        <br/>
-    {% endfor %}
-    <br/>
-
-
-
-
-
+{# FUNKTIONIERT SO NOCH NICHT #}
     <br/><br/>
     Erstes Bild:
     <br/>
@@ -173,6 +195,99 @@
             <br/>
         {% endif %}
     {% endfor %}
+
+
+    {#
+        BAUMNAME:
+        {{ tree.name }}
+        <br/>
+
+        ID:
+        {{ tree.id }}
+        <br/>
+        <br/>
+
+
+
+        Beispiele für gezielte Ausgabe von Information:
+        <br/>
+        {% for info in tree.informations %}
+            {% if info.name == "Wuchshöhe" %}
+                {{ info.name }}: {{ info.value }} Meter
+            {% endif %}
+        {% endfor %}
+        <br/>
+
+        {% for info in tree.informations %}
+            {% if info.name == "Baumname Wissenschaftlich" %}
+                {{ info.name }}: {{ info.value }}
+            {% endif %}
+        {% endfor %}
+        <br/>
+        <br/>
+
+
+        Beispiel für Ausgabe von HTML-Code abhängig von einer Variablen:
+        <br/>
+        {% for index, info in tree.informations %}
+            {% if info.name == "Kategorie" %}
+
+                {% if info.value == "1" %}
+                    <p>
+                        Kategorie 1 Text Bla Bla Bla
+                    </p>
+                {% endif %}
+                {% if info.value == "2" %}
+                    <p>
+                        Kategorie 2 Text Bla Bla Bla
+                    </p>
+                {% endif %}
+                {% if info.value == "3" %}
+                    <p>
+                        Kategorie 3 Text Bla Bla Bla
+                    </p>
+                {% endif %}
+                {% if info.value == "4" %}
+                    <p>
+                        Kategorie 4 Text Bla Bla Bla
+                    </p>
+                {% endif %}
+
+            {% endif %}
+        {% endfor %}
+        <br/>
+
+        Beispiel für gezielte Ausgabe von Information, für die es aber mehrere Werte gibt:
+        <br/>
+        Lichtbedarf:
+        <br/>
+        {% for index, info in tree.informations %}
+            {% if info.name == "Lichtbedarf" %}
+                {% if index > 0 %},{% endif %}
+
+                {% if info.value == 4 %}Sonne{% endif %}
+                {% if info.value == 3 %}Lichter Schatten{% endif %}
+                {% if info.value == 2 %}Halbschatten{% endif %}
+                {% if info.value == 1 %}Schatten{% endif %}
+            {% endif %}
+        {% endfor %}
+        <br/>
+        <br/>
+
+
+
+        <br/><br/><br/><br/>
+        Ausgabe von einfach allen Tree-Infos:
+        <br/>
+        {% for info in tree.informations %}
+            {{ info.name }}: {{ info.value }}
+            <br/>
+        {% endfor %}
+        <br/>
+
+
+    #}
+
 
 {% endblock %}
 

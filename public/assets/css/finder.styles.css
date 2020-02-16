@@ -113,3 +113,15 @@ button {
 	font-style: normal;
 }
 
+.quest {
+	background-color: #0f591c;
+	color: white;
+	padding: 6px;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	margin-left: 5px;
+	margin-bottom: 5px;
+	width: 155px;
+	height: auto;
+}

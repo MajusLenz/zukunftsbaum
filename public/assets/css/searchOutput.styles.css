@@ -7,8 +7,8 @@
 	margin-right: 5px;
     margin-top: 10px;
 	margin-bottom: 5px;
-    background-color: rgb(0, 105, 0);
-    color: rgb(255, 255, 255);
+	background: linear-gradient(152.24145939893992deg, rgba(88, 204, 109,0.4) 22.010821554770317%,rgba(88, 204, 109,0.41875) 25.829284452296825%,rgba(55, 200, 94,0.6) 59.60799469964665%,rgba(40, 199, 88,0.6) 76.49734982332156%);
+    color: #0f591c;
     border-radius: 6px;
 	text-align: center;
 	line-height: 20px;
@@ -22,6 +22,11 @@
 	clip-path: inset(5% 5% 20% 5% round 6px);
 }
 
+.item:hover {
+	background: #0f591c;
+	color: #48b267;
+	text-decoration: none;
+}
 
 /* FLEX BOX Regeln */
 
@@ -48,11 +53,12 @@
 
 /* Style select boxen */
 .quest {
-	background-color: rgb(0, 105, 0);
+	background-color: #0f591c;
 	color: white;
-	padding: 16px;
+	font-weight: bold;
+	padding: 10px;
 	border: none;
-	border-radius: 6px;
+	border-radius: 8px;
 	cursor: pointer;
 	margin-left: 5px;
 	margin-bottom: 5px;
@@ -84,5 +90,5 @@
 /* platzhalter für header */
 
 .space {
-	margin-top: 120px;
+	margin-top: 150px;
 }
