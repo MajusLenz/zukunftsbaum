@@ -176,13 +176,16 @@
 
 
 
-{# FUNKTIONIERT SO NOCH NICHT #}
+{# FUNKTIONIERT SO NOCH NICHT
+ auch der Testweise eingefügte alt="TEXT" wird nicht ausgegeben.
+ Unveränderte version:
+ #}
     <br/><br/>
     Erstes Bild:
     <br/>
     {% for index, pic in tree.pictures %}
         {% if index == 0 %}
-            <img src="{{ asset(treePicsDir ~ pic.path) }}" alt="" width="200px"/>
+            <img src="{{ asset(treePicsDir ~ pic.path) }}" alt="TEXT" width="200px"/>
             <br/>
         {% endif %}
     {% endfor %}
