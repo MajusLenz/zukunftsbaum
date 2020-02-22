@@ -97,35 +97,3 @@ body {
 	background: #F5F5F5;
 }
 
-
-
-
-
-
-/*------------Not lösung für HEADER -----ANFANG----------*/
-header, .container, .navbar, .nav-link{
-	background: #48b267;
-	height: 80px;
-}
-
-.nav-link{
-	color: white;
-	padding-top: 1.5em;
-}
-
-.logo {
-	max-height: 70px;
-	display: block;
-	margin-left: 4px;
-}
-
-.navbar-brand {
-	display: inline-block;
-	padding-top: .3125rem;
-	padding-bottom: .3125rem;
-	margin-right: 1rem;
-	font-size: 1.25rem;
-	line-height: inherit;
-	white-space: nowrap;
-}
-/*------------Not lösung für HEADER -----ENDE---------*/

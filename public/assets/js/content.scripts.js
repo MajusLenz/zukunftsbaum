@@ -18,6 +18,7 @@
         updateHeaderAnimation();
     });
 
+    // call one time on page load
     updateHeaderAnimation();
 
 }) }(window.jQuery));
