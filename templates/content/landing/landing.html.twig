@@ -1,5 +1,10 @@
 {% extends "content/content_base.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/landing.styles.css') }}">
+{% endblock %}
+
 {% block title %}
     {{ parent() }}
     Willkommen!
@@ -83,7 +88,7 @@
     <!-- End of Über Uns Section -->
 
     <!-- Spenden Section  -->
-    <div class="row home-section">
+    <div class="row home-section switch-order-on-mobile">
         <div class="col-sm-6">
             <img src="{{ asset('assets/images/content/watering_plants.svg') }}" class="home-pic">
         </div>

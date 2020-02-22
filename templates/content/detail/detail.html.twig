@@ -1,7 +1,8 @@
 {% extends "content/content_base.html.twig" %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/treeProfil.styles.css') }}">
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/detail.styles.css') }}">
 {% endblock %}
 
 {% block title %}
