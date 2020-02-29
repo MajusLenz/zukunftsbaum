@@ -121,13 +121,19 @@
                     </div>
                     <div class="td admin-operations-td">
                         <div class="admin-operations">
+                            <div class="admin-edit-tree-div" id="admin-edit-tree-div-{{ tree.id }}">
+                                <button class="admin-edit-tree-button" type="button"
+                                        data-toggle-show="admin-tree-row-edit-{{ tree.id }}"
+                                        data-toggle-hide="admin-tree-row-display-{{ tree.id }}"
+                                >Baum bearbeiten</button>
+                            </div>
                             <div class="admin-delete-tree-div">
                                 <button class="admin-delete-tree-button" id="admin-delete-tree-button-{{ tree.id }}" type="button"
                                         data-toggle-show="admin-delete-tree-confirm-buttons-{{ tree.id }}"
                                         data-toggle-hide="this admin-edit-tree-div-{{ tree.id }}"
                                 >gesamten Baum dauerhaft löschen</button>
                                 <div class="admin-delete-tree-confirm-buttons" id="admin-delete-tree-confirm-buttons-{{ tree.id }}"
-                                style="display: none;">
+                                     style="display: none;">
                                     <span>Sicher?</span>
                                     <form action="{{ path('admin_delete_tree', {'id': tree.id}) }}" method="POST">
                                         <button class="admin-delete-tree-confirm-button" type="submit">Ja</button>
@@ -137,12 +143,6 @@
                                             data-toggle-hide="admin-delete-tree-confirm-buttons-{{ tree.id }}">
                                         Abbrechen</button>
                                 </div>
-                            </div>
-                            <div class="admin-edit-tree-div" id="admin-edit-tree-div-{{ tree.id }}">
-                                <button class="admin-edit-tree-button" type="button"
-                                        data-toggle-show="admin-tree-row-edit-{{ tree.id }}"
-                                        data-toggle-hide="admin-tree-row-display-{{ tree.id }}"
-                                >Baum bearbeiten</button>
                             </div>
                         </div>
                     </div>
