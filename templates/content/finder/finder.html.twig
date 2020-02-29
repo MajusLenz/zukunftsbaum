@@ -71,7 +71,7 @@
 								<option class="option" value="30+">über 30 m</option>
 							</select>
 						</p>
-						<button class="button2">Weiter</button>
+						<button class="button2" onclick="plusDivs(+1)">Weiter</button>
 					</div>
 					
 					<div id="Frage2" class="Filter1"> 
@@ -96,7 +96,8 @@
 								<option class="option" value="1">Schatten</option>
 							</select>					
 						</p>
-						<button class="button2">Weiter</button> 	
+						<button class="button2" onclick="plusDivs(+1)">Weiter</button>
+						<button class="button2" onclick="plusDivs(-1)">Zurück</button>
 					</div>
 					
 					<div id="Frage3" class="Filter1"> 
@@ -121,9 +122,15 @@
 							</select>		
 						</p>						
 						<button class="button2" type="submit">Meine perfekter Baum</button>
+						<button class="button2" onclick="plusDivs(-1)">Zurück</button>
 					</div>
 				</div>
 			</div>
 
 	</form>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript" src="{{ asset('assets/js/slideshow.js') }}"></script>
 {% endblock %}
