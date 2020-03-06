@@ -1,8 +1,8 @@
 /*-------------------------------- Erstellung der Kacheln in Suchausgabe bereich ---------------------------------*/
 
 .item {
-    height: 170px;
-    width: 170px;
+    height: 200px;
+    width: 200px;
     margin-left: 5px;
 	margin-right: 5px;
     margin-top: 10px;
