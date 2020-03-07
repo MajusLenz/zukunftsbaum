@@ -10,7 +10,7 @@ body {
 	
 	width: auto;
 	min-width: 304px;
-	max-width: 900px;
+	max-width: 970px;
 	
 	height: auto;
 	min-height: 400px;
@@ -90,11 +90,11 @@ body {
 	
 	width: auto;
 	min-width: 0px;
-	max-width: 500px;
+	max-width: inherit;
 	
 	height: auto;
 	min-height: 0px;
-	max-height: 500px;
+	max-height: 5000px;
 	
 	text-align: left;
 	
@@ -115,10 +115,15 @@ li {
 .imgProfil {
 	width: 200px;
 	height: 200px;
-	clip-path: circle(50% at 50% 50%);
-	margin-left: 1em;
-	margin-top: 0.2em;
-	margin-right: 1em;
+	clip-path: circle(69.0% at 50% 50%);
+	margin-right: 0.5em;
+	margin-top: 0.5em;
 }
 
-
+.imgProfil2 {
+	width: 200px;
+	height: 200px;
+	clip-path: circle(69.0% at 50% 50%);
+	margin-right: 0.5em;
+	margin-top: 0.5em;
+}
