@@ -34,10 +34,9 @@ body {
 }
 
 .navbar-scrolled {
-    background-color: #48b267;
+    background: linear-gradient(108.19421167020027deg, rgba(136, 156, 118,0.95) 6.140625%,rgba(128, 152, 113,0.95) 10.795572916666668%,rgba(6, 97, 41,0.9002197802197802) 95.51562499999999%,rgba(6, 97, 41,0.9) 95.51562499999999%);
     height: 80px;
     padding:0;
-
 }
 
 
@@ -46,7 +45,7 @@ body {
 }
 
 .navbar-scrolled .nav-link:hover {
-    color:#00393a;
+    color:rgb(0, 105, 0);
 }
 
 .navbar-scrolled .logo {
