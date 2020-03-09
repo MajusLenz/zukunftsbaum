@@ -79,7 +79,11 @@ body {
 	flex: auto;
 }
 
-
+.HeadlineBox {
+	font-weight: bolder;
+	font-size: 1.5em;
+	color: #0b2e13;
+}
 
 h3, h2, p{
 	margin: 0.8em;
@@ -98,3 +102,21 @@ br {
 	margin-bottom: 0.7em;
 }
 
+
+a {
+	color: #F5F5F5;
+	font-weight: bold;
+}
+
+a:hover {
+	color: #0b2e13;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+span {
+	font-style: italic;
+	font-size: small;
+	float: right;
+	margin-bottom: 0.5em;
+}

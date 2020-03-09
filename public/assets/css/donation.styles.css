@@ -89,3 +89,13 @@ p {
 }
 
 
+a {
+	color: #6b3a28;
+	font-weight: bold;
+}
+
+a:hover {
+	color: #0b2e13;
+	font-weight: bold;
+	text-decoration: none;
+}
