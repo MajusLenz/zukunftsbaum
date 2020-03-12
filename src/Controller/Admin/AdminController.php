@@ -161,7 +161,7 @@ class AdminController extends AbstractController {
         $this->persistTreeInformationsForGivenTree($tree, $treeInformations, $treeInformationRepository, $entityManager);
 
         // edit pictures
-        $this->deletePicturesByPostParamsForGivenTree($tree, $postParams, $treePicsDirFull, $entityManager, $treePicturesRepository);
+        $this->deletePicturesByPostParamsForGivenTree($tree, $postParams, $treePicsDirFull, $thumbnailExtension, $entityManager, $treePicturesRepository);
         $files = $request->files;
         $newPictures = $files->get("pictures");
         $this->persistTreePictureUploadsForGivenTree($tree, $newPictures, $treePicsDirFull, $thumbnailExtension, $entityManager);
@@ -370,10 +370,11 @@ class AdminController extends AbstractController {
      * @param $tree
      * @param $postParams
      * @param $treePicsDirFull
+     * @param $thumbnailExtension
      * @param $entityManager
      * @param $treePicturesRepository
      */
-    private function deletePicturesByPostParamsForGivenTree($tree, $postParams, $treePicsDirFull, $entityManager, $treePicturesRepository) {
+    private function deletePicturesByPostParamsForGivenTree($tree, $postParams, $treePicsDirFull, $thumbnailExtension, $entityManager, $treePicturesRepository) {
 
         foreach ($postParams as $key => $param) {
             $isDeletePictureParam = strpos($key, "delete-pic-") !== false;
@@ -387,8 +388,10 @@ class AdminController extends AbstractController {
 
                     try {
                         unlink($treePicsDirFull . "/" . $pic->getPath());
-                    } catch (ErrorException $e) {
-                    }
+                    } catch (ErrorException $e) {}
+                    try {
+                        unlink($treePicsDirFull . "/" . $thumbnailExtension . $pic->getPath());
+                    } catch (ErrorException $e) {}
 
                     $entityManager->remove($pic);
                 }
@@ -428,7 +431,7 @@ class AdminController extends AbstractController {
      * @param $tree
      * @param $pictures File[] uploaded picture-files via http-request
      * @param $treePicsDirFull
-     * @param $thumbExtension
+     * @param $thumbnailExtension
      * @param $entityManager
      */
     private function persistTreePictureUploadsForGivenTree($tree, $pictures, $treePicsDirFull, $thumbnailExtension, $entityManager) {
