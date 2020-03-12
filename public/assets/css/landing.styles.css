@@ -5,3 +5,10 @@
     }
 
 }
+
+
+
+/* Hotfix for Bug, that user was able to scroll to the right on landingpge for no reason: */
+main{
+    width: 98%;
+}
