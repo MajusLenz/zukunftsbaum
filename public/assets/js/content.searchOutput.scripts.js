@@ -103,6 +103,8 @@
     } while (true);
 
     updateSearchResult();
+    // show trees initially
+    $allTrees.fadeIn(0);
 
 
     // BIND FILTER LOGIC TO EVENTS

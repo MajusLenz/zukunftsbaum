@@ -8,7 +8,7 @@
 
 
 
-/* Hotfix for Bug, that user was able to scroll to the right on landingpge for no reason: */
+/* Hotfix for Bug, that user was able to scroll to the right on landing page for no reason: */
 main{
     width: 98%;
 }
