@@ -154,11 +154,6 @@ button:focus {
 }
 
 .footer {
-    /*	background: rgb(255,255,255);
-        background: -moz-linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(136,224,224,1) 100%);
-        background: -webkit-linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(136,224,224,1) 100%);
-        background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(136,224,224,1) 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#88e0e0",GradientType=1); */
     background: #F5F5F5;
     background: -moz-linear-gradient(180deg, #F5F5F5 0%, rgba(72,178,103,1) 100%);
     background: -webkit-linear-gradient(180deg, #F5F5F5 0%, rgba(72,178,103,1) 100%);
