@@ -20,14 +20,14 @@
             <div class="ProfilBild">
                 {% for index, pic in tree.pictures %}
                     {% if index == 0 %}
-                        <img class="imgProfil" src="{{ asset(treePicsDir ~ pic.path) }}" alt="Profilbild" width="200px"/>
+                        <img class="imgProfil" src="{{ asset(treePicsDir ~ pic.path) }}" alt="Profil{{ pic.path }}bild" width="200px"/>
                     {% endif %}
                 {% endfor %}
 
                 {# Weitere Bilder #}
                 {% for index, pic in tree.pictures %}
                     {% if index > 0 %}
-                        <img class="imgProfil2" src="{{ asset(treePicsDir ~ pic.path) }}" width="200px"/>
+                        <img class="imgProfil2" src="{{ asset(treePicsDir ~ pic.path) }}" alt="{{ pic.path }}" width="200px"/>
                     {% endif %}
                 {% endfor %}
 
