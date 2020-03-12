@@ -2,6 +2,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\TreePicture;
+use App\Helper\ImagingHelper;
 use ErrorException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Exception\IOException;
@@ -24,6 +25,13 @@ use Symfony\Component\Finder\Finder;
 class AdminController extends AbstractController {
 
     const ALLOWED_PICTURE_EXTENSIONS = array("png", "gif", "jpg", "jpeg", "webp", "bmp");
+
+    private $imagingHelper;
+
+    public function __construct() {
+        $this->imagingHelper = new ImagingHelper();
+    }
+
 
     /**
      * @Route("/admin", name="admin_index")
@@ -75,7 +83,7 @@ class AdminController extends AbstractController {
     /**
      * @Route("/admin/newTree", name="admin_new_tree", methods={"POST"})
      */
-    public function adminNewTreeAction(Request $request, string $treePicsDirFull)
+    public function adminNewTreeAction(Request $request, string $treePicsDirFull, string $thumbnailExtension)
     {
         $doctrine = $this->getDoctrine();
         $entityManager = $doctrine->getManager();
@@ -105,7 +113,7 @@ class AdminController extends AbstractController {
         // upload tree-pictures and persist their path
         $files = $request->files;
         $pictures = $files->get("pictures");
-        $this->persistTreePictureUploadsForGivenTree($newTree, $pictures, $treePicsDirFull, $entityManager);
+        $this->persistTreePictureUploadsForGivenTree($newTree, $pictures, $treePicsDirFull, $thumbnailExtension, $entityManager);
 
         $entityManager->persist($newTree);
         $entityManager->flush();
@@ -116,7 +124,7 @@ class AdminController extends AbstractController {
     /**
      * @Route("/admin/editTree/{id}", name="admin_edit_tree", methods={"POST"}, requirements={"id"="\d+"})
      */
-    public function adminEditTreeAction($id, Request $request, string $treePicsDirFull)
+    public function adminEditTreeAction($id, Request $request, string $treePicsDirFull, string $thumbnailExtension)
     {
         $doctrine = $this->getDoctrine();
         $entityManager = $doctrine->getManager();
@@ -156,7 +164,7 @@ class AdminController extends AbstractController {
         $this->deletePicturesByPostParamsForGivenTree($tree, $postParams, $treePicsDirFull, $entityManager, $treePicturesRepository);
         $files = $request->files;
         $newPictures = $files->get("pictures");
-        $this->persistTreePictureUploadsForGivenTree($tree, $newPictures, $treePicsDirFull, $entityManager);
+        $this->persistTreePictureUploadsForGivenTree($tree, $newPictures, $treePicsDirFull, $thumbnailExtension, $entityManager);
 
         $entityManager->persist($tree);
         $entityManager->flush();
@@ -167,7 +175,7 @@ class AdminController extends AbstractController {
     /**
      * @Route("/admin/uploadCsvResult", name="admin_upload_csv", methods={"POST"})
      */
-    public function adminUploadCsvAction(Request $request, string $treePicsDirFull, string $rawTreePicsForCsvDirFull)
+    public function adminUploadCsvAction(Request $request, string $treePicsDirFull, string $rawTreePicsForCsvDirFull, string $thumbnailExtension)
     {
         /*
         $this   // SQL-DEBUGGER
@@ -286,6 +294,7 @@ class AdminController extends AbstractController {
                     if($newPicIsImageType) {
                         try {
                             $fileSystem->copy($rawPic->getRealPath(), $newPicPath, true);
+                            $this->createThumbnail($treePicsDirFull, $newPicFilename, $thumbnailExtension, $newPicExtension);
 
                             $newPicEntity = new TreePicture();
                             $newPicEntity->setPath($newPicFilenamePlusExtension);
@@ -419,9 +428,10 @@ class AdminController extends AbstractController {
      * @param $tree
      * @param $pictures File[] uploaded picture-files via http-request
      * @param $treePicsDirFull
+     * @param $thumbExtension
      * @param $entityManager
      */
-    private function persistTreePictureUploadsForGivenTree($tree, $pictures, $treePicsDirFull, $entityManager) {
+    private function persistTreePictureUploadsForGivenTree($tree, $pictures, $treePicsDirFull, $thumbnailExtension, $entityManager) {
 
         foreach ($pictures as $pic) {
             $filename = uniqid();
@@ -431,12 +441,28 @@ class AdminController extends AbstractController {
 
             if ($isImageType) {
                 $pic->move($treePicsDirFull, $path);
+                $this->createThumbnail($treePicsDirFull, $filename, $thumbnailExtension, $extension);
+
                 $newTreePicture = new TreePicture();
                 $newTreePicture->setPath($path);
                 $tree->addPicture($newTreePicture);
                 $entityManager->persist($newTreePicture);
             }
         }
+    }
+
+    /**
+     * @param $treePicsDirFull
+     * @param $filename
+     * @param $thumbnailExtension
+     * @param $typeExtension
+     */
+    private function createThumbnail($treePicsDirFull, $filename, $thumbnailExtension, $typeExtension) {
+        $this->imagingHelper->set_img($treePicsDirFull . "/" . $filename . "." . $typeExtension);
+        $this->imagingHelper->set_quality(80);
+        $this->imagingHelper->set_size(200);
+        $this->imagingHelper->save_img($treePicsDirFull . "/" . $thumbnailExtension . $filename . "." . $typeExtension);
+        $this->imagingHelper->clear_cache();
     }
 
     /**

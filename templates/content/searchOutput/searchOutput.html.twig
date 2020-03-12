@@ -102,7 +102,7 @@
             {% for key, tree in trees %}
                 <a class="item tree-search-result-item" href="{{ path('detail', {'id': tree.id}) }}" style="display: none;">
                     {{ tree.name }}
-                    <img class="itemPix" src="{% if tree.pictures|length > 0 %}{{ asset(treePicsDir ~ tree.pictures[0].path) }}{% endif %}" alt="">
+                    <img class="itemPix" src="{% if tree.pictures|length > 0 %}{{ asset(treePicsDir ~ thumbnailExtension ~ tree.pictures[0].path) }}{% endif %}" alt="">
                     {% for searchInfo in tree.searchableInformations %}
                         <input class="searchable-information" type="hidden" name="{{ searchInfo.name }}" value="{{ searchInfo.value }}">
                     {% endfor %}

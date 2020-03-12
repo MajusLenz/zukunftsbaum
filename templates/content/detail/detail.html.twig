@@ -20,22 +20,14 @@
             <div class="ProfilBild">
                 {% for index, pic in tree.pictures %}
                     {% if index == 0 %}
-                        <img class="imgProfil" src="{{ asset(treePicsDir ~ pic.path) }}" alt="BILD" width="200px"/>
+                        <img class="imgProfil" src="{{ asset(treePicsDir ~ pic.path) }}" alt="Profilbild" width="200px"/>
                     {% endif %}
                 {% endfor %}
 
                 {# Weitere Bilder #}
                 {% for index, pic in tree.pictures %}
-                    {% if index == 5 %}
+                    {% if index > 0 %}
                         <img class="imgProfil2" src="{{ asset(treePicsDir ~ pic.path) }}" width="200px"/>
-                        {% elseif index == 4 %}
-                            <img class="imgProfil2" src="{{ asset(treePicsDir ~ pic.path) }}" width="200px"/>
-                        {% elseif index == 3 %}
-                            <img class="imgProfil2" src="{{ asset(treePicsDir ~ pic.path) }}" width="200px"/>
-                        {% elseif index == 2 %}
-                            <img class="imgProfil2" src="{{ asset(treePicsDir ~ pic.path) }}" width="200px"/>
-                        {% elseif index == 1 %}
-                            <img class="imgProfil2" src="{{ asset(treePicsDir ~ pic.path) }}" width="200px"/>
                     {% endif %}
                 {% endfor %}
 
@@ -188,43 +180,7 @@
     </div>
 
 
-
-{# BILDER LOGIK ZUM EINBINDEN ############################################## IN BEARBEITEUNG
- MUSS NOCH ERLEDIGT WERDEN #################################################
-
-    <br/><br/>
-    Erstes Bild:
-    <br/>
-    {% for index, pic in tree.pictures %}
-        {% if index == 0 %}
-            <img src="{{ asset(treePicsDir ~ pic.path) }}" alt="" width="200px"/>
-            <br/>
-        {% endif %}
-    {% endfor %}
-
-    Restliche Bilder:
-    <br/>
-    {% for index, pic in tree.pictures %}
-        {% if index > 0 %}
-            <img src="{{ asset(treePicsDir ~ pic.path) }}" alt="" width="200px"/>
-            <br/>
-        {% endif %}
-    {% endfor %}
-#}
-
-
     {#
-        BAUMNAME:
-        {{ tree.name }}
-        <br/>
-
-        ID:
-        {{ tree.id }}
-        <br/>
-        <br/>
-
-
-
         Beispiele für gezielte Ausgabe von Information:
         <br/>
         {% for info in tree.informations %}

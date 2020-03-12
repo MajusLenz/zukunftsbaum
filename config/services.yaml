@@ -7,6 +7,7 @@ parameters:
     treePicsDir: 'assets/images/treeimages'
     treePicsDirFull: '%kernel.project_dir%/public/%treePicsDir%'
     rawTreePicsForCsvDirFull: '%kernel.project_dir%/rawTreePicsDir'
+    thumbnailExtension: 'thumb_'
 
 services:
     # default configuration for services in *this* file
@@ -17,6 +18,7 @@ services:
             $treePicsDir: '%treePicsDir%'
             $treePicsDirFull: '%treePicsDirFull%'
             $rawTreePicsForCsvDirFull: "%rawTreePicsForCsvDirFull%"
+            $thumbnailExtension: "%thumbnailExtension%"
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name

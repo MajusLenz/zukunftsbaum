@@ -105,7 +105,7 @@
                         {% for pic in tree.pictures %}
                             <div>
                                 <a class="img-link" href="{{ asset(treePicsDir ~ pic.path) }}" target="_blank">
-                                    <img src="{{ asset(treePicsDir ~ pic.path) }}" alt="" width="150px"/>
+                                    <img src="{{ asset(treePicsDir ~ thumbnailExtension ~ pic.path) }}" alt="" width="150px"/>
                                 </a>
                             </div>
                         {% endfor %}
@@ -176,7 +176,7 @@
                             {% for pic in tree.pictures %}
                                 <div>
                                     <a href="{{ asset(treePicsDir ~ pic.path) }}" target="_blank">
-                                        <img src="{{ asset(treePicsDir ~ pic.path) }}" alt="{{ tree.name }}" width="150px"/>
+                                        <img src="{{ asset(treePicsDir ~ thumbnailExtension ~ pic.path) }}" alt="{{ pic.path }}" width="150px"/>
                                     </a>
                                     <label>
                                         Bild löschen
