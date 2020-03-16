@@ -69,21 +69,17 @@ class ImagingHelper
         {
 
             // Wide
-            if($this->x_input >= $this->y_input)
+            if($this->x_input >= $this->y_input || true) // always take WIDE!
             {
-
                 $this->x_output = $size;
                 $this->y_output = ($this->x_output / $this->x_input) * $this->y_input;
-
             }
 
             // Tall
             else
             {
-
                 $this->y_output = $size;
                 $this->x_output = ($this->y_output / $this->y_input) * $this->x_input;
-
             }
 
             // Ready
