@@ -18,8 +18,8 @@
 }
 
 .itemPix {
-	height: inherit;
-	width: inherit;
+	height: 200px;
+	width: 200px;
 	clip-path: inset(5% 5% 20% 5% round 6px);
 }
 
