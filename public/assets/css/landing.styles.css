@@ -6,9 +6,21 @@
 
 }
 
+.btn-row {
+    margin-left: 0;
+    margin-right: 0;
+}
 
+.home-section{
+    margin-left: 0;
+    margin-right: 0;
+}
 
-/* Hotfix for Bug, that user was able to scroll to the right on landing page for no reason: */
+.home-pic{
+    margin-top: 20px;
+}
+
+    /* Hotfix for Bug, that user was able to scroll to the right on landing page for no reason: */
 main{
     width: 98%;
 }
